@@ -3,7 +3,8 @@ from django.contrib import admin
 
 urlpatterns = [
     # Examples:
-    # url(r'^$', 'django_on_iis.views.home', name='home'),
+    url(r'^gestao/membro/$', 'DjangoOnIis.views.inserirMembro', name='inserirMembro'),
+    url(r'^gestao/$' ,'DjangoOnIis.views.indexAdmin', name='indexAdmin'),
     # url(r'^blog/', include('blog.urls')),
 
     url(r'^admin/', include(admin.site.urls)),

@@ -37,6 +37,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'DjangoOnIis',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -73,19 +74,32 @@ WSGI_APPLICATION = 'django_on_iis.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
-
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.mysql',
+#        'NAME': 'igreja',
+#        'USER': 'igreja',
+#        'PASSWORD': 'igreja!',
+#        'HOST':'52.10.139.251',
+#        'PORT':'3306',
+#    }
+#}
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'igreja',
+        'USER': 'root',
+        'PASSWORD': '',
+        'HOST':'localhost',
+        'PORT':'3306',
     }
 }
-
+TEMPLATE_DIRS=(os.path.join(BASE_DIR + '/templates'),)
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'PT-pt'
 
 TIME_ZONE = 'UTC'
 

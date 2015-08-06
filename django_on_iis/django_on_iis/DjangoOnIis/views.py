@@ -47,15 +47,10 @@ def inserirMembro(request):
 	if request.method == 'POST':
 		form = MembroForm(request.POST)
 		if form.is_valid():
-			raw_provincia = Provincia.objects.get(nomeDaProvincia=form.cleaned_data['provincia'])
-			Membro.provincia_id = int(raw_provincia.id)
-			raw_pais = Pais.objects.get(nomeDoPais=form.cleaned_data['pais'])
-			Membro.pais = int(raw_pais.id)
-
-			raw_departamento = Departamento.objects.get(nomeDoDepartamento=form.cleaned_data['departamento'])
-			Membro.departamento = int(raw_departamento.id)
-			raw_igreja = Igreja.objects.get(nomeDaIgreja=form.cleaned_data['igreja'])
-			Membro.igreja =int(raw_igreja.id)
+			provincia = Provincia.objects.get(nomeDaProvincia=form.cleaned_data['provincia'])
+			pais = Pais.objects.get(nomeDoPais=form.cleaned_data['pais'])
+			departamento = Departamento.objects.get(nomeDoDepartamento=form.cleaned_data['departamento'])
+			igreja = Igreja.objects.get(nomeDaIgreja=form.cleaned_data['igreja'])
 			nomeDoMembro = form.cleaned_data['nomeDoMembro']
 			estadoCivil = form.cleaned_data['estadoCivil']
 			sexo = form.cleaned_data['sexo']
@@ -86,19 +81,19 @@ def inserirMembro(request):
 			foto = form.cleaned_data['foto']
 
 			new_membro, created = Membro.objects.get_or_create(nomeDoMembro=nomeDoMembro, estadoCivil=estadoCivil, sexo=sexo,
-				cargo = cargo, funcaoNaIgreja=funcaoNaIgreja, endereco=endereco, bairro=bairro, provincia=Membro.provincia_id, caixaPostal=caixaPostal,
-				telefone=telefone, email=email, dataDeNascimento=dataDeNascimento, pais=Membro.pais, grauAcademico=grauAcademico,
+				cargo = cargo, funcaoNaIgreja=funcaoNaIgreja, endereco=endereco, bairro=bairro, provincia=provincia, caixaPostal=caixaPostal,
+				telefone=telefone, email=email, dataDeNascimento=dataDeNascimento, pais=pais, grauAcademico=grauAcademico,
 				profissao=profissao, numeroDeIdentificacao=numeroDeIdentificacao, conjuge=conjuge, filiacaoPai=filiacaoPai,
 				filiacaoMae=filiacaoMae, dataDeConversao=dataDeConversao, procedencia=procedencia, formaDeAdmissao= formaDeAdmissao,
 				dataDeBaptismo=dataDeBaptismo, localDeBaptismo=localDeBaptismo, dataDeConsagracaoDiacono= dataDeConsagracaoDiacono,
 				dataDeConsagracaoEvangelista= dataDeConsagracaoEvangelista, dataDeConsagracaoPastor=dataDeConsagracaoPastor,
-				dataDeConsagracaoMissionario=dataDeConsagracaoMissionario, departamento=Membro.departamento,igreja=Membro.igreja,
+				dataDeConsagracaoMissionario=dataDeConsagracaoMissionario, departamento=departamento,igreja=igreja,
 				numeroDeMembro=numeroDeMembro,foto=foto)
 	else:
 		form = MembroForm()
 
 	provincia = lista_provincia()
-	pais = lista_pais
+	pais = Pais.objects.all()
 	departamento=Departamento.objects.all()
 	igreja = Igreja.objects.all()
 

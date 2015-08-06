@@ -42,7 +42,7 @@ class MembroForm(forms.Form):
 	funcaoNaIgreja = forms.CharField(max_length=50)
 	endereco = forms.CharField(max_length=50)
 	bairro = forms.CharField(max_length=50)
-	provincia_id = forms.ChoiceField(choices=get_provincia(),required=False)
+	provincia = forms.ChoiceField(choices=get_provincia(),required=False)
 	caixaPostal = forms.CharField(max_length=10)
 	telefone = forms.CharField(max_length=20)
 	email = forms.EmailField(max_length=200)

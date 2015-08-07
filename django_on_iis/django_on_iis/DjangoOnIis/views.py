@@ -92,9 +92,80 @@ def inserirMembro(request):
 	else:
 		form = MembroForm()
 
-	provincia = lista_provincia()
+	provincia = Provincia.objects.all()
 	pais = Pais.objects.all()
 	departamento=Departamento.objects.all()
 	igreja = Igreja.objects.all()
 
 	return render(request, 'inserirMembros.html',{'form':form,'provincia':provincia,'pais':pais,'departamento':departamento,'igreja':igreja})
+
+
+#Queries 
+
+def get_nome(informacao):
+	query=connection.cursor()
+	query.execute("select DjangoOnIis_membro.id, nomeDoMembro, numeroDeMembro, estadoCivil, sexo, funcaoNaIgreja, telefone,DjangoOnIis_departamento.nomeDoDepartamento from DjangoOnIis_membro, DjangoOnIis_departamento where nomeDoMembro='%s'" %informacao);
+	return dictfetchall(query)
+
+
+
+
+
+
+def pesquisarMembro(request):
+	content =''
+	opcao = request.GET.get('opcao')
+	informacao = request.GET.get('informacao')
+	if opcao == 'Nome':
+		resultado = get_nome(informacao)
+		content ={'query':opcao, 'resultado':resultado}
+	template = 'pesquisarMembro.html'
+
+	return render(request, template, content)
+
+
+
+
+
+
+
+
+
+"""def pesquisa(request):
+	content=''
+	mensagem = 'Resultados da Pesquisa:'
+	msg ='Nao foram encontrados resultados!'
+	nome = request.GET.get('nome')
+	data = request.GET.get('data')
+	if nome:
+		resultado = get_consulta(nome, data)
+		content = {'query': nome, 'resultado': resultado,'mensagem':mensagem}
+		if resultado ==[]:
+			content = {'msg':msg}
+			
+	template = 'pesquisa.html'
+	return render(request,template,content)"""
+
+def lista_pacientes(request):
+	paciente = get_lista_pacientes()
+	template = 'lista_pacientes.html'
+	return render(request, template, {'paciente':paciente})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

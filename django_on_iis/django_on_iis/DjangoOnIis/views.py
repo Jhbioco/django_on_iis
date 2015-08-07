@@ -100,16 +100,14 @@ def inserirMembro(request):
 	return render(request, 'inserirMembros.html',{'form':form,'provincia':provincia,'pais':pais,'departamento':departamento,'igreja':igreja})
 
 
-<<<<<<< HEAD
 
-=======
 #Queries 
 
 def get_nome(informacao):
 	query=connection.cursor()
 	query.execute("select DjangoOnIis_membro.id, nomeDoMembro, numeroDeMembro, estadoCivil, sexo, funcaoNaIgreja, telefone,DjangoOnIis_departamento.nomeDoDepartamento from DjangoOnIis_membro, DjangoOnIis_departamento where nomeDoMembro='%s'" %informacao);
 	return dictfetchall(query)
->>>>>>> f834e3c2615d4c1c31ac60d2c3760f29b02f6fcb
+
 
 
 
@@ -117,11 +115,11 @@ def get_nome(informacao):
 
 
 def pesquisarMembro(request):
-<<<<<<< HEAD
+
 	dados={}
 	template='pesquisarMembro.html'
 	return render(request,template,{'dados':dados})
-=======
+
 	content =''
 	opcao = request.GET.get('opcao')
 	informacao = request.GET.get('informacao')
@@ -168,18 +166,4 @@ def lista_pacientes(request):
 
 
 
-
-
-
-
->>>>>>> f834e3c2615d4c1c31ac60d2c3760f29b02f6fcb
-
-
-
-
-
-<<<<<<< HEAD
-	
-=======
->>>>>>> f834e3c2615d4c1c31ac60d2c3760f29b02f6fcb
 

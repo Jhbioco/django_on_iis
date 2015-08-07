@@ -1,7 +1,11 @@
 {% extends "base.html" %}
 {% block content%}
 
+<<<<<<< HEAD
 <div class="cabecalho"><i>*Introduz os dados da pesquisa</i></div>
+=======
+<div class="cabecalho"><i>*Escolha uma das opções</i></div>
+>>>>>>> f834e3c2615d4c1c31ac60d2c3760f29b02f6fcb
 <div class="container">
   <form class="form-horizontal" role="form" method="GET">
 
@@ -17,6 +21,7 @@
         <option>Oftamologia</option>
         <option>Obstetricia</option>
       </select>
+<<<<<<< HEAD
       </div>
       <label class="control-label col-sm-2" for="pwd">Nome do Medico:</label>
       <div class="col-sm-10">          
@@ -72,13 +77,87 @@
         <td>{{resultado.paciente_data_consulta}}</td>
         <td>{{resultado.especialidade_nome}}</td>
         <td>{{resultado.medico_nome}}</td>
+=======
+      </div>-->
+<script type="text/javascript">
+  function myFunction() {
+    
+    if (document.getElementById("data").selected){
+      document.getElementById("col-sm-10").style.display = "none";
+      document.getElementById("entrada").style.display = "none";
+      document.getElementById("containerx").style.display="none";
+    }
+    else{
+      document.getElementById("col-sm-10").style.display = "block";
+      document.getElementById("entrada").style.display = "block";
+    }
+      
+  }
+</script>
+      <label class="control-label col-sm-2" for="pwd">Opcao:</label>
+      <div class="col-sm-10">          
+       <select size="5" class="form-control input-sm" id="opcao" name = "opcao" style="height: 73px; font-size=14px;  ">
+        <option id ="nome" selected onclick="myFunction()">Nome</option>
+        <option id="especialidade" onclick="myFunction()">Numero de Identificação</option>
+        <option id="medico" onclick="myFunction()">Profissão</option>
+        <option id="especialidade" onclick="myFunction()">Função</option>
+        <option id="medico" onclick="myFunction()">Grau Academico</option>
+        <option id="data" onclick="myFunction()">Data</option>
+        
+      </select>
+      </div>
+      <label class="control-label col-sm-2" for="pwd">Data:</label>
+      <div class="col-sm-10">          
+        <input type="text" class="form-control" id="data" name = "data"placeholder="Data da Consulta">
+      </div>
+      <label class="control-label col-sm-2" id ="entrada"for="pwd">Entrada:</label>
+      <div class="col-sm-10" id="col-sm-10">          
+        <input type="text" class="form-control" id="nome" name = "nome"placeholder="Entrada">
+      </div>
+      <div class="col-sm-offset-2 col-sm-10">
+        <button type="submit" class="btn btn-default" >Pesquisar</button>
+      </div>
+    </div>
+  </form>
+  <div class="containerx" id="containerx">
+  <h6>{{mensagem}}</h6> 
+  <h6>{{msg}}</h6>       
+  <table class="table table-hover">
+     
+   <div id ="tabela" class="tabela"> <thead>
+      <tr>
+        <th>Id</th>
+        <th>Nome</th>
+        <th>Numero do Membro</th>
+        <th>Estado Civil</th>
+         <th>Sexo</th>
+        <th>Função</th>
+         <th>Telefone</th>
+        <th>Departamento</th>
+      </tr>
+    </thead>
+    </div>
+   {% for resultado in resultado %}
+    <tbody>
+      <tr>
+        <td>{{resultado.id}}</td>
+        <td>{{resultado.numeroDeMembro}}</td>
+        <td>{{resultado.estadoCivil}}</td>
+        <td>{{resultado.sexo}}</td>
+        <td>{{resultado.funcaoNaIgreja}}</td>
+        <td>{{resultado.telefone}}</td>
+        <td>{{resultado.nomeDoDepartamento}}</td>
+>>>>>>> f834e3c2615d4c1c31ac60d2c3760f29b02f6fcb
       </tr>
     </tbody>
     {% endfor %}
   </table>
 </div>
 </div>
+<<<<<<< HEAD
 
+=======
+>>>>>>> f834e3c2615d4c1c31ac60d2c3760f29b02f6fcb
   
 <style type="text/css">
 .form-control{
@@ -90,6 +169,10 @@
 }
 .col-sm-10{
   padding-bottom: 15px;
+<<<<<<< HEAD
+=======
+
+>>>>>>> f834e3c2615d4c1c31ac60d2c3760f29b02f6fcb
 }
 .cabecalho{
   color: blue;
@@ -97,5 +180,15 @@
 .containerx{
   width: 65%;
 }
+<<<<<<< HEAD
 </style>
+=======
+.containery{
+  margin-top: -6%;
+  margin-left: -1%;
+
+}
+</style>
+
+>>>>>>> f834e3c2615d4c1c31ac60d2c3760f29b02f6fcb
 {% endblock content %}

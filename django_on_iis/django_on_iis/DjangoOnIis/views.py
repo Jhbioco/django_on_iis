@@ -30,6 +30,7 @@ def lista_pais():
 	pais_opcao.execute("select nomeDoPais from DjangoOnIis_pais ");
 	return dictfetchall(pais_opcao)
 
+
 """def inserirMembro(request):
 	provincia = lista_provincia()
 	pais = lista_pais
@@ -44,6 +45,17 @@ def indexAdmin(request):
 	return render(request,template,dados)
 
 def inserirMembro(request):
+
+
+	valor = request.GET.get('id')
+	if valor: 
+		resultado = get_editar_membro(valor)
+		print "ola"
+		print resultado[0]['nomeDoMembro']
+
+	#return valor
+
+
 	if request.method == 'POST':
 		form = MembroForm(request.POST)
 		if form.is_valid():
@@ -105,32 +117,67 @@ def inserirMembro(request):
 
 def get_nome(informacao):
 	query=connection.cursor()
-	query.execute("select DjangoOnIis_membro.id, nomeDoMembro, numeroDeMembro, estadoCivil, sexo, funcaoNaIgreja, telefone,DjangoOnIis_departamento.nomeDoDepartamento from DjangoOnIis_membro, DjangoOnIis_departamento where nomeDoMembro='%s'" %informacao);
+	query.execute("select DjangoOnIis_membro.id, nomeDoMembro, numeroDeMembro, estadoCivil, sexo, funcaoNaIgreja, telefone,DjangoOnIis_departamento.nomeDoDepartamento from DjangoOnIis_membro, DjangoOnIis_departamento where nomeDoMembro like %s ",("%" + informacao +"%",));
 	return dictfetchall(query)
 
+def get_numero_membro(informacao):
+	query=connection.cursor()
+	query.execute("select DjangoOnIis_membro.id, nomeDoMembro, numeroDeMembro, estadoCivil, sexo, funcaoNaIgreja, telefone,DjangoOnIis_departamento.nomeDoDepartamento from DjangoOnIis_membro, DjangoOnIis_departamento where numeroDeMembro like %s ", ("%" + informacao + "%",));
+	return dictfetchall(query)
 
+def get_profissao_membro(informacao):
+	query=connection.cursor()
+	query.execute("select DjangoOnIis_membro.id, nomeDoMembro, numeroDeMembro, estadoCivil, sexo, funcaoNaIgreja, telefone,DjangoOnIis_departamento.nomeDoDepartamento from DjangoOnIis_membro, DjangoOnIis_departamento where profissao like %s ", ("%" + informacao + "%",));
+	return dictfetchall(query)
 
+def get_funcao_membro(informacao):
+	query=connection.cursor()
+	query.execute("select DjangoOnIis_membro.id, nomeDoMembro, numeroDeMembro, estadoCivil, sexo, funcaoNaIgreja, telefone,DjangoOnIis_departamento.nomeDoDepartamento from DjangoOnIis_membro, DjangoOnIis_departamento where funcaoNaIgreja like %s ", ("%" + informacao + "%",));
+	return dictfetchall(query)
 
+def get_grau_membro(informacao):
+	query=connection.cursor()
+	query.execute("select DjangoOnIis_membro.id, nomeDoMembro, numeroDeMembro, estadoCivil, sexo, funcaoNaIgreja, telefone,DjangoOnIis_departamento.nomeDoDepartamento from DjangoOnIis_membro, DjangoOnIis_departamento where grauAcademico = '%s' " %informacao);
+	return dictfetchall(query)
+def get_todos(informacao):
+	query=connection.cursor()
+	query.execute("select DjangoOnIis_membro.id, nomeDoMembro, numeroDeMembro, estadoCivil, sexo, funcaoNaIgreja, telefone,DjangoOnIis_departamento.nomeDoDepartamento from DjangoOnIis_membro, DjangoOnIis_departamento");
+	return dictfetchall(query)
 
-
+def get_editar_membro(valor):
+	query = connection.cursor()
+	query.execute("select * from DjangoOnIis_membro where id = '%s'" % valor);
+	return dictfetchall(query)
 
 def pesquisarMembro(request):
-
-	dados={}
-	template='pesquisarMembro.html'
-	return render(request,template,{'dados':dados})
 
 	content =''
 	opcao = request.GET.get('opcao')
 	informacao = request.GET.get('informacao')
+	print informacao
+	print opcao
 	if opcao == 'Nome':
 		resultado = get_nome(informacao)
 		content ={'query':opcao, 'resultado':resultado}
+	elif opcao == 'Numero_de_Membro':
+		resultado = get_numero_membro(informacao)
+		content = {'query':opcao, 'resultado':resultado}
+	elif opcao == 'Profissao':
+		resultado = get_profissao_membro(informacao)
+		content = {'query':opcao, 'resultado':resultado}
+	elif opcao == 'Funcao':
+		resultado = get_funcao_membro(informacao)
+		content = {'query':opcao, 'resultado':resultado}
+	elif opcao == 'Todos':
+		resultado = get_todos(informacao)
+		content = {'query':opcao, 'resultado':resultado}
+	else:
+		resultado = get_grau_membro(informacao)
+		content = {'query':opcao, 'resultado':resultado}
+
 	template = 'pesquisarMembro.html'
 
 	return render(request, template, content)
-
-
 
 
 
@@ -157,6 +204,65 @@ def lista_pacientes(request):
 	paciente = get_lista_pacientes()
 	template = 'lista_pacientes.html'
 	return render(request, template, {'paciente':paciente})
+
+def editarMembro(request):
+	valor = request.GET.get('id')
+	
+	resultado = get_editar_membro(valor)
+	if request.method == 'POST':
+		form = MembroForm(request.POST)
+		if form.is_valid():
+			provincia = Provincia.objects.get(nomeDaProvincia=form.cleaned_data['provincia'])
+			pais = Pais.objects.get(nomeDoPais=form.cleaned_data['pais'])
+			departamento = Departamento.objects.get(nomeDoDepartamento=form.cleaned_data['departamento'])
+			igreja = Igreja.objects.get(nomeDaIgreja=form.cleaned_data['igreja'])
+			nomeDoMembro = form.cleaned_data['nomeDoMembro']
+			estadoCivil = form.cleaned_data['estadoCivil']
+			sexo = form.cleaned_data['sexo']
+			cargo = form.cleaned_data['cargo']
+			funcaoNaIgreja = form.cleaned_data['funcaoNaIgreja']
+			endereco = form.cleaned_data['endereco']
+			bairro = form.cleaned_data['bairro']
+			caixaPostal = form.cleaned_data['caixaPostal']
+			telefone = form.cleaned_data['telefone']
+			email = form.cleaned_data['email']
+			dataDeNascimento = form.cleaned_data['dataDeNascimento']
+			grauAcademico = form.cleaned_data['grauAcademico']
+			profissao = form.cleaned_data['profissao']
+			numeroDeIdentificacao = form.cleaned_data['numeroDeIdentificacao']
+			conjuge = form.cleaned_data['conjuge']
+			filiacaoPai = form.cleaned_data['filiacaoPai']
+			filiacaoMae = form.cleaned_data['filiacaoMae']
+			dataDeConversao = form.cleaned_data['dataDeConversao']
+			procedencia = form.cleaned_data['procedencia']
+			formaDeAdmissao = form.cleaned_data['formaDeAdmissao']
+			dataDeBaptismo = form.cleaned_data['dataDeBaptismo']
+			localDeBaptismo = form.cleaned_data['localDeBaptismo']
+			dataDeConsagracaoDiacono = form.cleaned_data['dataDeConsagracaoDiacono']
+			dataDeConsagracaoEvangelista = form.cleaned_data['dataDeConsagracaoEvangelista']
+			dataDeConsagracaoPastor = form.cleaned_data['dataDeConsagracaoPastor']
+			dataDeConsagracaoMissionario = form.cleaned_data['dataDeConsagracaoMissionario']
+			numeroDeMembro = form.cleaned_data['numeroDeMembro']
+			foto = form.cleaned_data['foto']
+
+			created = Membro.objects.filter(pk=valor).update(nomeDoMembro=nomeDoMembro, estadoCivil=estadoCivil, sexo=sexo,
+				cargo = cargo, funcaoNaIgreja=funcaoNaIgreja, endereco=endereco, bairro=bairro, provincia=provincia, caixaPostal=caixaPostal,
+				telefone=telefone, email=email, dataDeNascimento=dataDeNascimento, pais=pais, grauAcademico=grauAcademico,
+				profissao=profissao, numeroDeIdentificacao=numeroDeIdentificacao, conjuge=conjuge, filiacaoPai=filiacaoPai,
+				filiacaoMae=filiacaoMae, dataDeConversao=dataDeConversao, procedencia=procedencia, formaDeAdmissao= formaDeAdmissao,
+				dataDeBaptismo=dataDeBaptismo, localDeBaptismo=localDeBaptismo, dataDeConsagracaoDiacono= dataDeConsagracaoDiacono,
+				dataDeConsagracaoEvangelista= dataDeConsagracaoEvangelista, dataDeConsagracaoPastor=dataDeConsagracaoPastor,
+				dataDeConsagracaoMissionario=dataDeConsagracaoMissionario, departamento=departamento,igreja=igreja,
+				numeroDeMembro=numeroDeMembro,foto=foto )
+
+	else:
+		form = MembroForm()
+	template = 'editarMembro.html' 
+	provincia=Provincia.objects.all()
+	pais =Pais.objects.all()
+	departamento=Departamento.objects.all()
+	igreja=Igreja.objects.all()
+	return render (request,template,{'form':form, 'resultado':resultado,'provincia':provincia,'pais':pais,'departamento':departamento,'igreja':igreja})
 
 
 

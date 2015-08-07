@@ -98,3 +98,23 @@ def inserirMembro(request):
 	igreja = Igreja.objects.all()
 
 	return render(request, 'inserirMembros.html',{'form':form,'provincia':provincia,'pais':pais,'departamento':departamento,'igreja':igreja})
+
+
+
+
+
+
+
+
+
+def pesquisarMembro(request):
+	dados={}
+	template='pesquisarMembro.html'
+	return render(request,template,{'dados':dados})
+
+
+
+
+
+	
+

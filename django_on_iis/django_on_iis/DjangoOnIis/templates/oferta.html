@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% block content %}
+
+
+<div class="container">
+  <form class="form-horizontal" role="form" method="POST">{% csrf_token %}
+    {{form.errors}}
+    <div class="form-group">
+      <p><p>
+  <label class="control-label col-sm-2" for="pwd">Igreja:</label>
+      <div class="col-sm-10">          
+       <select class="form-control input-sm" id="igreja" name = "igreja">
+        <option></option>
+        {% for igreja in igreja %}
+        <option>{{igreja.nomeDaIgreja}}</option>
+        {% endfor %}
+      </select>
+      </div>
+
+
+      <label class="control-label col-sm-2" for="email">Valor da oferta:</label>
+     <div class="col-sm-10">          
+        <input type="text" class="form-control" id="valorDaOferta" name = "valorDaOferta"placeholder="Valor da oferta" value="{%for resultado in resultado %}{{resultado.valorDaOferta}}{% endfor %}">
+      </div>
+
+  <label class="control-label col-sm-2" for="email">Data:</label>
+     <div class="col-sm-10">          
+        <input type="text" class="form-control" id="dataDaOferta" name = "dataDaOferta"placeholder="Data da oferta" value="{%for resultado in resultado %}{{resultado.dataDaOferta}}{% endfor %}">
+      </div>
+
+       <label class="control-label col-sm-2" for="email">Mês:</label>
+     <div class="col-sm-10">          
+        <input type="text" class="form-control" id="mesDaOferta" name = "mesDaOferta"placeholder="Mês da oferta" value="{%for resultado in resultado %}{{resultado.mesDaOferta}}{% endfor %}">
+      </div>
+
+
+       <label class="control-label col-sm-2" for="email">Ano:</label>
+     <div class="col-sm-10">          
+        <input type="text" class="form-control" id="anoDaOferta" name = "anoDaOferta"placeholder="Ano da contribuição" value="{%for resultado in resultado %}{{resultado.anoDaOferta}}{% endfor %}">
+      </div>
+      <div class="col-sm-offset-2 col-sm-10">
+        <button type="submit" class="btn btn-default">Gravar</button>
+      </div>
+	</div>
+  </form>
+</div>
+
+
+<style type="text/css">
+.form-control{
+  width: 40%;
+  height: 30px;
+}
+.form-group{
+  padding-top: 5px;
+}
+.col-sm-10{
+  padding-bottom: 15px;
+}
+.btnbtn-primary{
+  color:white;
+}
+.cabecalho{
+  color: blue;
+}
+.containerx{
+  margin-top: -6%;
+  margin-left: -1%;
+
+}
+</style>
+{% endblock content %}

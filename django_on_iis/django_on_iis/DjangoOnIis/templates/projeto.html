@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block content %}
+
+
+<div class="container">
+  <form class="form-horizontal" role="form" method="POST">{% csrf_token %}
+    {{form.errors}}
+    <div class="form-group">
+      <p><p>
+  <label class="control-label col-sm-2" for="pwd">Igreja:</label>
+      <div class="col-sm-10">          
+       <select class="form-control input-sm" id="igreja" name = "igreja">
+        <option></option>
+        {% for igreja in igreja %}
+        <option>{{igreja.nomeDaIgreja}}</option>
+        {% endfor %}
+      </select>
+      </div>
+
+
+      <label class="control-label col-sm-2" for="email">Descrição:</label>
+     <div class="col-sm-10">          
+        <input type="text" class="form-control" id="descricaoDoProjeto" name = "descricaoDoProjeto" placeholder="Descrição do projecto">
+      </div>
+
+  <label class="control-label col-sm-2" for="email">Orçamento:</label>
+     <div class="col-sm-10">          
+        <input type="text" class="form-control" id="orcamento" name = "orcamento"placeholder="Orçamento">
+      </div>
+
+ <div class="col-sm-offset-2 col-sm-10">
+        <button type="submit" class="btn btn-default">Gravar</button>
+      </div>
+	</div>
+  </form>
+</div>
+
+
+<style type="text/css">
+.form-control{
+  width: 40%;
+  height: 30px;
+}
+.form-group{
+  padding-top: 5px;
+}
+.col-sm-10{
+  padding-bottom: 15px;
+}
+.btnbtn-primary{
+  color:white;
+}
+.cabecalho{
+  color: blue;
+}
+.containerx{
+  margin-top: -6%;
+  margin-left: -1%;
+
+}
+</style>
+{% endblock content %}

@@ -1,9 +1,9 @@
 from django.shortcuts import render
 from django.http import  HttpResponse,HttpResponseRedirect
-from .models import Pais,Provincia, Municipio, Igreja, Departamento, Membro
+from .models import Pais,Provincia, Municipio, Igreja, Departamento, Membro,Dizimo,Contribuicao,Oferta,Projeto
 #from .forms import IgrejaForm
 from django.db import connection
-from .forms import MembroForm
+from .forms import MembroForm,DizimoForm,ContribuicaoForm,ProjetoForm,OfertaForm
 
 # Create your views here.
 
@@ -192,6 +192,10 @@ def lista_pacientes(request):
 	template = 'lista_pacientes.html'
 	return render(request, template, {'paciente':paciente})
 
+def indexMembro(request):
+	template ='indexMembro.html'
+	return render(request,template)
+
 def editarMembro(request):
 	valor = request.GET.get('id')
 	
@@ -292,9 +296,91 @@ def visualizarMembro(request):
 	return render (request,template,{'form':form, 'resultado':resultado,'provincia':provincia,'pais':pais,'departamento':departamento,'igreja':igreja})
 
 
+def dizimo(request):
+	if request.method =='POST':
+		form = DizimoForm(request.POST)
+		if form.is_valid():
+
+			nomeDoMembro = Membro.objects.get(nomeDoMembro=form.cleaned_data['nomeDoMembro'])
+
+			igreja = Igreja.objects.get(nomeDaIgreja=form.cleaned_data['igreja'])
+			valorDoDizimo = form.cleaned_data['valorDoDizimo']
+			dataDoDizimo = form.cleaned_data['dataDoDizimo']
+			mesDoDizimo = form.cleaned_data['mesDoDizimo']
+			anoDoDizimo = form.cleaned_data['anoDoDizimo']
+			#print form.cleaned_data['nome']
+
+			new_dizimo, created = Dizimo.objects.get_or_create(nomeDoMembro=nomeDoMembro, igreja=igreja, valorDoDizimo=valorDoDizimo,dataDoDizimo=dataDoDizimo,
+				mesDoDizimo=mesDoDizimo, anoDoDizimo=anoDoDizimo)
+
+	else:
+		form = DizimoForm()
+	template = 'dizimo.html'
+	membro = Membro.objects.order_by('nomeDoMembro')
+	igreja = Igreja.objects.order_by('nomeDaIgreja')
+
+	return render(request, template, {'form':form, 'membro':membro, 'igreja':igreja})
+
+def projeto(request):
+	if request.method=='POST':
+		form = ProjetoForm(request.POST)
+		if form.is_valid():
+			igreja = Igreja.objects.get(nomeDaIgreja=form.cleaned_data['igreja'])
+			descricaoDoProjeto = form.cleaned_data['descricaoDoProjeto']
+			orcamento = form.cleaned_data['orcamento']
+
+			new_projeto, created = Projeto.objects.get_or_create(igreja=igreja, descricaoDoProjeto=descricaoDoProjeto, orcamento=orcamento)
+
+	else:
+		form = ProjetoForm()
+
+	template = 'projeto.html'
+	igreja = Igreja.objects.order_by('nomeDaIgreja')
+	return render(request, template, {'form':form, 'igreja':igreja})
+
+def contribuicao(request):
+	if request.method=='POST':
+		form = ContribuicaoForm(request.POST)
+		if form.is_valid():
+			nomeDoMembro = Membro.objects.get(nomeDoMembro=form.cleaned_data['nomeDoMembro'])
+			igreja = Igreja.objects.get(nomeDaIgreja=form.cleaned_data['igreja'])
+			valorDaContribuicao = form.cleaned_data['valorDaContribuicao']
+			descricaoDaContribuicao = Projeto.objects.get(descricaoDoProjeto=form.cleaned_data['descricaoDaContribuicao'])
+			dataDaContribuicao = form.cleaned_data['dataDaContribuicao']
+			mesDaContribuicao = form.cleaned_data['mesDaContribuicao']
+			anoDaContribuicao = form.cleaned_data['anoDaContribuicao']
+			new_contribuicao, created = Contribuicao.objects.get_or_create(nomeDoMembro=nomeDoMembro,igreja=igreja,valorDaContribuicao=valorDaContribuicao,descricaoDaContribuicao=descricaoDaContribuicao, dataDaContribuicao=dataDaContribuicao,
+				mesDaContribuicao=mesDaContribuicao, anoDaContribuicao=anoDaContribuicao)
+	else:
+		form = ContribuicaoForm()
+
+	template = 'contribuicao.html'
+	membro = Membro.objects.order_by('nomeDoMembro')
+	igreja = Igreja.objects.order_by('nomeDaIgreja')
+	projeto= Projeto.objects.order_by('descricaoDoProjeto')
+	return render (request, template, {'form':form, 'membro':membro, 'igreja':igreja ,'projeto':projeto})
 
 
 
+
+def oferta(request):
+	if request.method=='POST':
+		form = OfertaForm(request.POST)
+		if form.is_valid():
+			igreja = Igreja.objects.get(nomeDaIgreja=form.cleaned_data['igreja'])
+			valorDaOferta = form.cleaned_data['valorDaOferta']
+			dataDaOferta =form.cleaned_data['dataDaOferta']
+			mesDaOferta = form.cleaned_data['mesDaOferta']
+			anoDaOferta = form.cleaned_data['anoDaOferta']
+
+			new_oferta, created = Oferta.objects.get_or_create(igreja=igreja,valorDaOferta=valorDaOferta, dataDaOferta=dataDaOferta,
+				mesDaOferta=mesDaOferta, anoDaOferta=anoDaOferta)
+	else:
+		form = ContribuicaoForm()
+
+	template = 'oferta.html'
+	igreja = Igreja.objects.order_by('nomeDaIgreja')
+	return render (request, template, {'form':form, 'igreja':igreja})
 
 
 

@@ -90,7 +90,7 @@ def inserirMembro(request):
 			dataDeConsagracaoPastor = form.cleaned_data['dataDeConsagracaoPastor']
 			dataDeConsagracaoMissionario = form.cleaned_data['dataDeConsagracaoMissionario']
 			numeroDeMembro = form.cleaned_data['numeroDeMembro']
-			foto = form.cleaned_data['foto']
+			
 
 			new_membro, created = Membro.objects.get_or_create(nomeDoMembro=nomeDoMembro, estadoCivil=estadoCivil, sexo=sexo,
 				cargo = cargo, funcaoNaIgreja=funcaoNaIgreja, endereco=endereco, bairro=bairro, provincia=provincia, caixaPostal=caixaPostal,
@@ -100,7 +100,7 @@ def inserirMembro(request):
 				dataDeBaptismo=dataDeBaptismo, localDeBaptismo=localDeBaptismo, dataDeConsagracaoDiacono= dataDeConsagracaoDiacono,
 				dataDeConsagracaoEvangelista= dataDeConsagracaoEvangelista, dataDeConsagracaoPastor=dataDeConsagracaoPastor,
 				dataDeConsagracaoMissionario=dataDeConsagracaoMissionario, departamento=departamento,igreja=igreja,
-				numeroDeMembro=numeroDeMembro,foto=foto)
+				numeroDeMembro=numeroDeMembro)
 	else:
 		form = MembroForm()
 
@@ -149,6 +149,12 @@ def get_editar_membro(valor):
 	query.execute("select * from DjangoOnIis_membro where id = '%s'" % valor);
 	return dictfetchall(query)
 
+def removerMembro(valor):
+	query = connection.cursor()
+	query.execute("delete from DjangoOnIis_membro where id = '%s'" % valor);
+	return dictfetchall(query)
+
+
 def pesquisarMembro(request):
 
 	content =''
@@ -181,25 +187,6 @@ def pesquisarMembro(request):
 
 
 
-
-
-
-
-"""def pesquisa(request):
-	content=''
-	mensagem = 'Resultados da Pesquisa:'
-	msg ='Nao foram encontrados resultados!'
-	nome = request.GET.get('nome')
-	data = request.GET.get('data')
-	if nome:
-		resultado = get_consulta(nome, data)
-		content = {'query': nome, 'resultado': resultado,'mensagem':mensagem}
-		if resultado ==[]:
-			content = {'msg':msg}
-			
-	template = 'pesquisa.html'
-	return render(request,template,content)"""
-
 def lista_pacientes(request):
 	paciente = get_lista_pacientes()
 	template = 'lista_pacientes.html'
@@ -209,6 +196,7 @@ def editarMembro(request):
 	valor = request.GET.get('id')
 	
 	resultado = get_editar_membro(valor)
+	print resultado
 	if request.method == 'POST':
 		form = MembroForm(request.POST)
 		if form.is_valid():
@@ -243,7 +231,8 @@ def editarMembro(request):
 			dataDeConsagracaoPastor = form.cleaned_data['dataDeConsagracaoPastor']
 			dataDeConsagracaoMissionario = form.cleaned_data['dataDeConsagracaoMissionario']
 			numeroDeMembro = form.cleaned_data['numeroDeMembro']
-			foto = form.cleaned_data['foto']
+
+			
 
 			created = Membro.objects.filter(pk=valor).update(nomeDoMembro=nomeDoMembro, estadoCivil=estadoCivil, sexo=sexo,
 				cargo = cargo, funcaoNaIgreja=funcaoNaIgreja, endereco=endereco, bairro=bairro, provincia=provincia, caixaPostal=caixaPostal,
@@ -253,7 +242,8 @@ def editarMembro(request):
 				dataDeBaptismo=dataDeBaptismo, localDeBaptismo=localDeBaptismo, dataDeConsagracaoDiacono= dataDeConsagracaoDiacono,
 				dataDeConsagracaoEvangelista= dataDeConsagracaoEvangelista, dataDeConsagracaoPastor=dataDeConsagracaoPastor,
 				dataDeConsagracaoMissionario=dataDeConsagracaoMissionario, departamento=departamento,igreja=igreja,
-				numeroDeMembro=numeroDeMembro,foto=foto )
+				numeroDeMembro=numeroDeMembro)
+			return HttpResponseRedirect('/gestao/membro/pesquisar/')
 
 	else:
 		form = MembroForm()
@@ -264,6 +254,42 @@ def editarMembro(request):
 	igreja=Igreja.objects.all()
 	return render (request,template,{'form':form, 'resultado':resultado,'provincia':provincia,'pais':pais,'departamento':departamento,'igreja':igreja})
 
+
+
+
+def eliminarMembro(request):
+	valor = request.GET.get('id')
+	print valor
+	resultado = get_editar_membro(valor)
+	print resultado
+	
+	if request.method == 'POST':
+		form = MembroForm(request.POST)
+		removerMembro(valor)
+		return HttpResponseRedirect('/gestao/membro/pesquisar/')
+	else:
+		form = MembroForm()
+	template = 'eliminarMembro.html'
+	return render(request, template, {'form':form, 'resultado':resultado})
+
+
+def visualizarMembro(request):
+	valor = request.GET.get('id')
+	print valor
+	resultado = get_editar_membro(valor)
+	print resultado
+	
+	if request.method == 'POST':
+		form = MembroForm(request.POST)
+		return HttpResponseRedirect('/gestao/membro/pesquisar/')
+	else:
+		form = MembroForm()
+	template = 'visualizarMembro.html'
+	provincia=Provincia.objects.all()
+	pais =Pais.objects.all()
+	departamento=Departamento.objects.all()
+	igreja=Igreja.objects.all()
+	return render (request,template,{'form':form, 'resultado':resultado,'provincia':provincia,'pais':pais,'departamento':departamento,'igreja':igreja})
 
 
 

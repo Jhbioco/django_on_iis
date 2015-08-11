@@ -85,7 +85,7 @@ class Membro(models.Model):
 	departamento = models.ForeignKey(Departamento)
 	igreja = models.ForeignKey(Igreja)
 	numeroDeMembro= models.CharField(max_length=20)
-	foto = models.ImageField(upload_to = 'fotos/')
+	#foto = models.ImageField(upload_to = 'fotos/')
 
 	def __str__(self):
 		return self.nomeDoMembro

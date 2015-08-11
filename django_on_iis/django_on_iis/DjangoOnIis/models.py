@@ -1,30 +1,25 @@
+# -*- coding: utf-8 -*-
 from django.db import models
-
-
-
-
-
-
 
 # Create your models here.
 class Pais(models.Model):
 	nomeDoPais = models.CharField(max_length=50)
-	def __str__(self):
-		return self.nomeDoPais
+	def __unicode__(self):
+		return unicode(self.nomeDoPais)
 
 class Provincia(models.Model):
 	nomeDaProvincia = models.CharField(max_length=50)
 	idDoPais = models.ForeignKey(Pais)
 
-	def __str__(self):
-		return self.nomeDaProvincia
+	def __unicode__(self):
+		return unicode(self.nomeDaProvincia)
 
 class Municipio(models.Model):
 	nomeDoMunicipio = models.CharField(max_length=50)
 	idDaProvincia = models.ForeignKey(Provincia)
 
-	def __str__(self):
-		return self.nomeDoMunicipio
+	def __unicode__(self):
+		return unicode(self.nomeDoMunicipio)
 
 		
 class Igreja(models.Model):
@@ -38,8 +33,9 @@ class Igreja(models.Model):
 	email = models.EmailField(max_length=200)
 	dataDeCriacao = models.DateField()
 	logotipo = models.ImageField(upload_to = 'fotos/', default = 'fotos/no-img.jpg')
-	def __str__(self):
-		return self.nomeDaIgreja
+
+	def __unicode__(self):
+		return unicode(self.nomeDaIgreja)
 
 
 
@@ -47,8 +43,8 @@ class Departamento(models.Model):
 	nomeDoDepartamento = models.CharField(max_length=50)
 	idDaIgreja = models.ForeignKey(Igreja)
 
-	def __str__(self):
-		return self.nomeDoDepartamento
+	def __unicode__(self):
+		return unicode(self.nomeDoDepartamento)
 
 
 
@@ -87,8 +83,64 @@ class Membro(models.Model):
 	numeroDeMembro= models.CharField(max_length=20)
 	#foto = models.ImageField(upload_to = 'fotos/')
 
-	def __str__(self):
-		return self.nomeDoMembro
+	def __unicode__(self):
+		return unicode(self.nomeDoMembro)
+
+
+class Dizimo(models.Model):
+	nomeDoMembro = models.ForeignKey(Membro)
+	igreja = models.ForeignKey(Igreja)
+	valorDoDizimo = models.FloatField(default=None)
+	dataDoDizimo = models.DateField()
+	mesDoDizimo = models.CharField(max_length=20)
+	anoDoDizimo=models.CharField(max_length=10)
+
+	def __unicode__(self):
+		return unicode(self.valorDoDizimo)
+
+
+class Projeto(models.Model):
+	igreja = models.ForeignKey(Igreja)
+	descricaoDoProjeto = models.CharField(max_length=300)
+	orcamento = models.FloatField(default=None)
+
+	def __unicode__(self):
+		return unicode(self.descricaoDoProjeto)
+
+
+class Contribuicao(models.Model):
+	nomeDoMembro = models.ForeignKey(Membro)
+	igreja = models.ForeignKey(Igreja)
+	valorDaContribuicao = models.FloatField(default=None)
+	descricaoDaContribuicao = models.ForeignKey(Projeto)
+	dataDaContribuicao = models.DateField()
+	mesDaContribuicao = models.CharField(max_length=20)
+	anoDaContribuicao = models.CharField(max_length=10)
+
+	def __unicode__(self):
+		return unicode(self.descricaoDaContribuicao)
+
+
+
+class Oferta(models.Model):
+	igreja = models.ForeignKey(Igreja)
+	valorDaOferta = models.FloatField(default=None)
+	dataDaOferta = models.DateField()
+	mesDaOferta = models.CharField(max_length=20)
+	anoDaOferta = models.CharField(max_length=10)
+
+	def __unicode__(self):
+		return unicode(self.valorDaOferta)
+
+
+
+
+
+
+
+
+
+
 
 
 

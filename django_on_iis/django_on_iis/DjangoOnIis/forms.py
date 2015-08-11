@@ -58,7 +58,7 @@ class MembroForm(forms.Form):
 	procedencia = forms.CharField(max_length=100)
 	formaDeAdmissao = forms.CharField(max_length=50)
 	dataDeBaptismo = forms.DateField()
-	localDeBaptismo = forms.CharField(max_length=50,required=False)
+	localDeBaptismo = forms.CharField(max_length=50,required=True)
 	dataDeConsagracaoDiacono = forms.DateField()
 	dataDeConsagracaoEvangelista = forms.DateField()
 	dataDeConsagracaoPastor = forms.DateField()
@@ -66,4 +66,36 @@ class MembroForm(forms.Form):
 	departamento = forms.ChoiceField(choices=get_departamento())
 	igreja = forms.ChoiceField(choices=get_igreja())
 	numeroDeMembro = forms.CharField(max_length=20)
-	foto = forms.ImageField(required=False)
+	#foto = forms.ImageField(required=False)
+
+class DizimoForm(forms.Form):
+	nomeDoMembro = forms.CharField(required=False)
+	igreja = forms.CharField()
+	valorDoDizimo = forms.FloatField()
+	dataDoDizimo = forms.DateField()
+	mesDoDizimo = forms.CharField()
+	anoDoDizimo = forms.CharField()
+
+class ContribuicaoForm(forms.Form):
+	nomeDoMembro = forms.CharField()
+	igreja = forms.CharField()
+	valorDaContribuicao = forms.FloatField()
+	descricaoDaContribuicao = forms.CharField()
+	dataDaContribuicao = forms.DateField()
+	mesDaContribuicao = forms.CharField()
+	anoDaContribuicao = forms.CharField()
+
+class OfertaForm(forms.Form):
+	igreja = forms.CharField()
+	valorDaOferta = forms.FloatField()
+	dataDaOferta = forms.DateField()
+	mesDaOferta = forms.CharField()
+	anoDaOferta = forms.CharField()
+
+
+class ProjetoForm(forms.Form):
+	igreja = forms.CharField()
+	descricaoDoProjeto = forms.CharField()
+	orcamento = forms.FloatField()
+
+

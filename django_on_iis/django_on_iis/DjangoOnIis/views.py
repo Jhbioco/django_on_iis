@@ -154,6 +154,15 @@ def removerMembro(valor):
 	query.execute("delete from DjangoOnIis_membro where id = '%s'" % valor);
 	return dictfetchall(query)
 
+def pesquisarDizimo(valor, ano):
+	query = connection.cursor()
+	query.execute("select * from DjangoOnIis_dizimo where nomeDomembro_id = '%s' and anoDoDizimo = '%s'" %(valor, ano)) ;
+	return dictfetchall(query)
+
+def pesquisarDizimoTodos(valor):
+	query = connection.cursor()
+	query.execute("select * from DjangoOnIis_dizimo where nomeDomembro_id = '%s'" %valor);
+	return dictfetchall(query)
 
 def pesquisarMembro(request):
 
@@ -381,6 +390,25 @@ def oferta(request):
 	template = 'oferta.html'
 	igreja = Igreja.objects.order_by('nomeDaIgreja')
 	return render (request, template, {'form':form, 'igreja':igreja})
+
+
+def visualizarDizimo(request):
+	valor = request.GET.get('id')
+	ano = request.GET.get('ano')
+	if request.GET.get('id'):
+		request.session['id'] = valor
+		#request.session['anoT'] = 'Todos'
+	print request.session['id']
+	resultado = pesquisarDizimoTodos(valor)
+	if ano and ano!='Todos':
+		resultado=pesquisarDizimo(request.session['id'],ano)
+	else:
+		resultado = pesquisarDizimoTodos(request.session['id'])
+
+		
+	template = 'visualizarDizimo.html'
+	return render(request, template, {'resultado':resultado})
+
 
 
 

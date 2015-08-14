@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+  <form class="form-horizontal" role="form" method="POST">
+<div class="form-group">
+<fieldset>
+<legend>Dados Pessoais </legend>      
+<table style="width:50%">
+   
+  <tr>
+    <td>Nome:</td>
+    <td><b>{{resultado.nomeDoFuncionario}}</b></td>
+  </tr>
+ <tr>
+    <td>Data de Nascimento:</td>
+    <td><b>{{resultado.dataDeNascimento}}</b></td>
+  </tr>
+  <tr>
+    <td>Sexo:</td>
+    <td><b>{{resultado.sexo}}</b></td>
+  </tr>
+   <tr>
+    
+    <td>Provincia:</td>
+    <td><b>{{provincia.nomeDaProvincia}}</b></td>
+   
+  </tr>
+   <tr>
+ 
+    <td>Pais:</td>
+    <td><b>{{pais.nomeDoPais}}</b></td>
+    
+  </tr>
+  <tr>
+    <td>Estado Civil:</td>
+    <td><b>{{resultado.estadoCivil}}</b></td>
+  </tr>
+  <tr>
+    <td>Pai:</td>
+    <td><b>{{resultado.filiacaoPai}}</b></td>
+  </tr>
+   <tr>
+    <td>Mae:</td>
+    <td><b>{{resultado.filiacaoMae}}</b></td>
+  </tr>
+   <tr>
+    <td>Numero de Identificação:</td>
+    <td><b>{{resultado.numeroDeIdentificacao}}</b></td>
+  </tr>
+ 
+</table>
+</fieldset>
+
+<fieldset>
+<legend>Dados de contacto</legend> 
+ <table style="width:50%">
+  
+  <tr>
+    <td>Endereço:</td>
+    <td><b>{{resultado.endereco}}</b></td>
+  </tr>
+  <tr>
+    <td>Bairro:</td>
+    <td><b>{{resultado.bairro}}</b></td>
+  </tr>
+  <tr>
+    <td>Telefone:</td>
+    <td><b>{{resultado.telefone}}</b></td>
+  </tr>
+  <tr>
+    <td>Email:</td>
+    <td><b>{{resultado.email}}</b></td>
+  </tr>
+
+</table> 
+</fieldset>
+
+<fieldset>
+<legend>Dados Profissionais</legend>
+<table style="width:50%">
+
+
+<tr>
+    <td>Grau Académico:</td>
+    <td><b>{{resultado.grauAcademico}}</b></td>
+  </tr>
+  <tr>
+    <td>Profissão:</td>
+    <td><b>{{resultado.profissao}}</b></td>
+  </tr>
+  <tr>
+    <td>Nº de Funcionário:</td>
+    <td><b>{{resultado.numeroDeFuncionario}}</b></td>
+  </tr>
+  <tr>
+    <td>Salário Base:</td>
+    <td><b>{{resultado.salarioBase}}</b></td>
+  </tr>
+  
+</table>
+
+<div class="col-sm-offset-2 col-sm-10">
+        <button type="reset" class="btn btn-default" onclick="voltar()">Voltar</button>
+</div>
+</form>
+<script type="text/javascript">
+
+function voltar(){
+  window.location= "/gestao/rh/funcionario/pesquisar/";
+}
+</script>
+
+<style type="text/css">
+.form-group{
+  margin-left: 0%;
+  margin-right: 0%;
+  width: 68%;
+}
+.td {
+  text-align: right;
+}
+</style>
+
+{% endblock content %}

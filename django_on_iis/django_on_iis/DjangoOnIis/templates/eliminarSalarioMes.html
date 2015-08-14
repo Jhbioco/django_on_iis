@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block content %}
+Esta prestes a eliminar o salario do mês de {% for resultado in resultado %} <b style="color:red"> {{resultado.salarioMes}}{% endfor %} de {% for resultado in resultado %}{{resultado.salarioAno}}{% endfor %}</b> do funcionário <b>{{funcionario.nomeDoFuncionario}}</b><p></p>
+Deseja continuar a operação?
+
+<div class="container">
+  <form class="form-horizontal" role="form" method="POST">{% csrf_token %}
+  {{form.errors}}
+<div class="form-group">
+<div class="col-sm-offset-2 col-sm-10">
+        <button type="submit" class="btn btn-default">Eliminar</button>
+        <button type="reset" class="btn btn-default" onclick="voltar()">Cancelar</button>
+</div>
+</form>
+</div>
+</div>
+
+<script type="text/javascript">
+
+function voltar(){
+	window.location= "/gestao/rh/funcionario/pesquisar/";
+}
+</script>
+<style type="text/css">
+.form-control{
+  width: 40%;
+  height: 30px;
+}
+.form-group{
+  padding-top: 5px;
+}
+.col-sm-10{
+  padding-bottom: 15px;
+
+}
+.cabecalho{
+  color: blue;
+}
+.containerx{
+  width: 65%;
+  }
+.containery{
+  margin-top: -6%;
+  margin-left: -1%;
+
+}
+</style>
+
+{% endblock content %}

@@ -1,0 +1,88 @@
+{%extends "base.html"%}
+
+
+{%block content%}
+
+<div class="container">
+  <form class="form-horizontal" role="form" method="GET">
+  	
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="pwd">Ano:</label>
+      <div class="col-sm-10">          
+       <select size="1" class="form-control input-sm" id="ano" name = "ano">
+        <option id ="nome" selected onclick="myFunction()">Todos</option>
+        <option id ="nome" onclick="myFunction()">2014</option>
+        <option id ="nome" onclick="myFunction()">2015</option>
+        <option id="especialidade" onclick="myFunction()">2016</option>
+        <option id="medico" onclick="myFunction()">2017</option>
+        <option id="especialidade" onclick="myFunction()">2018</option>
+        <option id="medico" onclick="myFunction()">2019</option>
+        <option id="data" onclick="myFunction()">2020</option>
+      </select>
+      </div>
+      <div class="col-sm-offset-2 col-sm-10">
+        <button type="submit" class="btn btn-default">Pesquisar</button>
+      </div>
+    </div>
+  </form>
+  <div class="containerx" id ="containerx">     
+  <table class="table table-hover">
+   <div id ="tabela" class="tabela"> <thead>
+      <tr>
+        <th>Funcionário</th>
+        <th>Salário Base</th>
+        <th>Ano</th>
+         <th>Mês</th>
+         <th>SS</th>
+         <th>IRT</th>
+         <th>Faltas</th>
+         <th>Bonus</th>
+         <th>S. Líquido</th>
+      </tr>
+    </thead>
+    </div>
+   
+    <tbody>
+      {% for resultado in resultado %}
+      <tr>
+        <td>{{funcionario.nomeDoFuncionario}}</td>
+        <td>{{funcionario.salarioBase}}</td>
+        <td>{{resultado.salarioAno}}</td>
+        <td>{{resultado.salarioMes}}</td>
+        <td>{{resultado.salarioSS}}</td>
+        <td>{{resultado.salarioIRT}}</td>
+        <td>{{resultado.salarioNumerodeFaltas}}</td>
+        <td>{{resultado.salarioBonus}}</td>
+        <td>{{resultado.salarioLiquido}}</td>
+         <td><a href="/gestao/rh/funcionario/salario/editar?id={{resultado.id}}">Editar</a></td>
+         <td><a href="/gestao/rh/funcionario/salario/eliminar?id={{resultado.id}}">Eliminar</a></td>
+         {% endfor %}
+      </tr>
+    </tbody>
+      <tr><td><a href="/gestao/rh/funcionario/salario/inserir?id={{funcionario.id}}">Lançar próximo salário</a></td></tr>
+  </table>
+</div>
+</div>
+  
+<style type="text/css">
+.form-control{
+  width: 40%;
+  height: 30px;
+}
+.form-group{
+  padding-top: 10px;
+}
+.col-sm-10{
+  padding-bottom: 15px;
+
+}
+.cabecalho{
+  color: blue;
+}
+.containerx{
+  width: 65%;
+  margin-top: -10%;
+  }
+
+</style>
+{%endblock content%}

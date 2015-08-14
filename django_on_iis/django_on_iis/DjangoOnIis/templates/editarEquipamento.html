@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+  <form class="form-horizontal" role="form" method="POST">{% csrf_token %}
+    {{form.errors}}
+    <div class="form-group">
+      <p><p>
+     
+  <label class="control-label col-sm-2" for="pwd">Igreja:</label>
+      <div class="col-sm-10">          
+       <select class="form-control input-sm" id="igreja" name = "igreja">
+        <option></option>
+        {% for igreja in igreja %}
+        <option>{{igreja.nomeDaIgreja}}</option>
+        {% endfor %}
+      </select>
+      </div>
+
+      <label class="control-label col-sm-2" for="email">Nome do Equipamento:</label>
+     <div class="col-sm-10">          
+        <input type="text" class="form-control" id="nome" name = "nome" value="{%for resultado in resultado %}{{resultado.nome}}{% endfor %}">
+      </div>
+      <label class="control-label col-sm-2" for="email">Marca:</label>
+     <div class="col-sm-10">          
+        <input type="text" class="form-control" id="marca" name = "marca" value="{%for resultado in resultado %}{{resultado.marca}}{% endfor %}">
+      </div>
+	<label class="control-label col-sm-2" for="email">Número de Série:</label>
+     <div class="col-sm-10">          
+        <input type="text" class="form-control" id="numeroDeSerie" name = "numeroDeSerie" value="{%for resultado in resultado %}{{resultado.numeroDeSerie}}{% endfor %}">
+      </div>
+	<label class="control-label col-sm-2" for="email">Data da aquisição:</label>
+     <div class="col-sm-10">          
+        <input type="text" class="form-control" id="dataDaAquisicao" name = "dataDaAquisicao" value="{%for resultado in resultado %}{{resultado.dataDaAquisicao}}{% endfor %}">
+      </div>
+<label class="control-label col-sm-2" for="email">Modelo:</label>
+     <div class="col-sm-10">          
+        <input type="text" class="form-control" id="modelo" name = "modelo" value="{%for resultado in resultado %}{{resultado.modelo}}{% endfor %}">
+      </div>
+
+<label class="control-label col-sm-2" for="email">Localização:</label>
+     <div class="col-sm-10">          
+        <input type="text" class="form-control" id="localizacao" name = "localizacao" value="{%for resultado in resultado %}{{resultado.localizacao}}{% endfor %}">
+      </div>
+<label class="control-label col-sm-2" for="pwd">Estado do equipamento:</label>
+      <div class="col-sm-10">          
+       <select class="form-control input-sm" id="estado" name = "estado">
+        <option></option>
+        <option>Funcional</option>
+        <option>Não Funcional</option>
+        <option>Emprestado</option>
+        <option>Destraviado</option>
+      </select>
+      </div>
+
+
+
+<label class="control-label col-sm-2" for="email">Preço:</label>
+     <div class="col-sm-10">          
+        <input type="text" class="form-control" id="preco" name = "preco" value="{%for resultado in resultado %}{{resultado.preco}}{% endfor %}">
+      </div>
+
+<label class="control-label col-sm-2" for="email">Observação:</label>
+     <div class="col-sm-10">          
+        <textarea type="text" class="form-control" id="obs" name = "obs" > {%for resultado in resultado %}{{resultado.obs}}{% endfor %} </textarea>
+      </div>
+
+        <div class="col-sm-offset-2 col-sm-10">
+        <button type="submit" class="btn btn-default">Gravar</button>
+      </div>
+	</div>
+  </form>
+</div>
+
+
+<style type="text/css">
+.form-control{
+  width: 40%;
+  height: 30px;
+}
+.form-group{
+  padding-top: 5px;
+}
+.col-sm-10{
+  padding-bottom: 15px;
+}
+.btnbtn-primary{
+  color:white;
+}
+.cabecalho{
+  color: blue;
+}
+.containerx{
+  margin-top: -6%;
+  margin-left: -1%;
+
+}
+</style>
+
+{% endblock content %}

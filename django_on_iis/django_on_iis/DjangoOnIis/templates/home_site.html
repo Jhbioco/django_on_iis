@@ -51,10 +51,10 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right"> 
                     <li>
-                        <a href="contact.html">Notícias</a>
+                        <a href="/gestao/noticias">Notícias</a>
                     </li>
                     <li>
-                        <a href="contact.html">Eventos</a>
+                        <a href="/gestao/noticias">Eventos</a>
                     </li>
                     <li>
                         <a href="contact.html">Devocionais</a>
@@ -69,7 +69,7 @@
                         <a href="contact.html">Contactos</a>
                     </li>
                     <li>
-                        <a href="contact.html">Admin</a>
+                        <a href="/gestao">Admin</a>
                     </li>
                      <form class="navbar-form navbar-right">
                         <input type="text" class="form-control" placeholder="Procurar...">
@@ -210,8 +210,8 @@
                         <h4><i class="fa fa-fw fa-compass"></i> Programa da Igreja</h4>
                     </div>
                     <div class="panel-body">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque, optio corporis quae nulla aspernatur in alias at numquam rerum ea excepturi expedita tenetur assumenda voluptatibus eveniet incidunt dicta nostrum quod?</p>
-                        <a href="#" class="btn btn-default">Learn More</a>
+                        <p>{%for programa in programa%}<b>{{programa.diaDaSemana}}:</b> {{programa.descricao}}<p></p>
+                        {% endfor %}</p>
                     </div>
                 </div>
             </div>
@@ -266,19 +266,10 @@
 
 
 
-        <hr>
+       
 
         <!-- Call to Action Section -->
-        <div class="well">
-            <div class="row">
-                <div class="col-md-8">
-                    <p></p>
-                </div>
-                <div class="col-md-4">
-                    <a class="btn btn-lg btn-default btn-block" href="#">Call to Action</a>
-                </div>
-            </div>
-        </div>
+     
 
         <hr>
 

@@ -7,12 +7,12 @@
 
   <!-- Nav tabs -->
   <ul class="nav nav-tabs col-sm-10" role="tablist">
-    <li role="presentation" class="active" style="font-size:12px; font-family: fantasy;"><a href="#editarEquipamento" aria-controls="editarEquipamento" role="tab" data-toggle="tab">Editar Equipamento</a></li>
+    <li role="presentation" class="active" style="font-size:12px; "><a href="#editarEquipamento" aria-controls="editarEquipamento" role="tab" data-toggle="tab">Editar Equipamento</a></li>
   </ul>
 
   <!-- Tab panes -->
   <div class="tab-content col-sm-10" style = "background-color: white; box-shadow: 2px 10px 10px 3px grey;">
-    <div role="tabpanel" class="tab-pane fade in active" id="editarEquipamento" style="font-size:12px; font-family: fantasy; margin-top: 10px;">
+    <div role="tabpanel" class="tab-pane fade in active" id="editarEquipamento" style="font-size:12px; margin-top: 10px;">
   <form class="form-horizontal" role="form" method="POST">{% csrf_token %}
     {{form.errors}}
     <div class="form-group">
@@ -42,7 +42,7 @@
       </div>
 	<label class="control-label col-sm-2" for="email">Data da aquisição:</label>
      <div class="col-sm-9">          
-        <input type="text" class="form-control" id="dataDaAquisicao" name = "dataDaAquisicao" value="{%for resultado in resultado %}{{resultado.dataDaAquisicao}}{% endfor %}">
+        <input type="text" class="form-control" id="dataDaAquisicao" name = "dataDaAquisicao" value="{%for resultado in resultado %}{{resultado.dataDaAquisicao.year}}-{{resultado.dataDaAquisicao.month}}-{{resultado.dataDaAquisicao.day}}{% endfor %}">
       </div>
 <label class="control-label col-sm-2" for="email">Modelo:</label>
      <div class="col-sm-9">          
@@ -94,7 +94,7 @@
       margin-top: 10px;
       margin-left: auto;
       margin-right: auto;
-      font-family: fantasy;
+    
       }
     .col-sm-9{
       margin-bottom: 6px;

@@ -54,19 +54,19 @@ class MembroForm(forms.Form):
 	conjuge = forms.CharField(max_length=100)
 	filiacaoPai = forms.CharField(max_length=100)
 	filiacaoMae = forms.CharField(max_length=100)
-	dataDeConversao = forms.DateField()
+	dataDeConversao = forms.DateField(required=False)
 	procedencia = forms.CharField(max_length=100)
 	formaDeAdmissao = forms.CharField(max_length=50)
-	dataDeBaptismo = forms.DateField()
-	localDeBaptismo = forms.CharField(max_length=50,required=True)
-	dataDeConsagracaoDiacono = forms.DateField()
-	dataDeConsagracaoEvangelista = forms.DateField()
-	dataDeConsagracaoPastor = forms.DateField()
-	dataDeConsagracaoMissionario = forms.DateField()
+	dataDeBaptismo = forms.DateField(required=False)
+	localDeBaptismo = forms.CharField(max_length=50,required=False)
+	dataDeConsagracaoDiacono = forms.DateField(required=False)
+	dataDeConsagracaoEvangelista = forms.DateField(required=False)
+	dataDeConsagracaoPastor = forms.DateField(required=False)
+	dataDeConsagracaoMissionario = forms.DateField(required=False)
 	departamento = forms.ChoiceField(choices=get_departamento())
 	igreja = forms.ChoiceField(choices=get_igreja())
-	numeroDeMembro = forms.CharField(max_length=20)
-	#foto = forms.ImageField(required=False)
+	numeroDeMembro = forms.CharField(max_length=20,required=False)
+	foto = forms.ImageField(label='Seleccionar imagem')
 
 class DizimoForm(forms.Form):
 	nomeDoMembro = forms.CharField(required=False)
@@ -119,7 +119,7 @@ class FuncionarioForm(forms.Form):
 	filiacaoMae = forms.CharField(max_length=100)
 	numeroDeFuncionario = forms.CharField(max_length=20)
 	salarioBase = forms.FloatField()
-	#foto = forms.ImageField(required=False)
+	foto = forms.ImageField(label='Seleccionar imagem')
 
 
 class SalarioForm(forms.Form):
@@ -157,7 +157,7 @@ class ComentariosForm(forms.Form):
     noticia=forms.CharField()
     autor = forms.CharField()
     comentario = forms.CharField()
-    data = forms.DateField()
+    data = forms.DateField(required=False)
     
 
 
@@ -184,6 +184,12 @@ class ConfiguracoesForm(forms.Form):
 	texto6 = forms.CharField()
 	desenvolvedores = forms.CharField()
 
+
+class PesquisarNoticiaForm(forms.Form):
+	tipo = forms.CharField()
+class ProgramaForm(forms.Form):
+	diaDaSemana=forms.CharField(required=True)
+	descricao=forms.CharField(required=True)
 
 
 class UserForm(forms.Form):

@@ -69,19 +69,19 @@ class Membro(models.Model):
 	conjuge = models.CharField(max_length=100)
 	filiacaoPai = models.CharField(max_length=100)
 	filiacaoMae = models.CharField(max_length=100)
-	dataDeConversao = models.DateField()
+	dataDeConversao = models.DateField(null=True,blank=True)
 	procedencia = models.CharField(max_length=100)
 	formaDeAdmissao = models.CharField(max_length=50)
-	dataDeBaptismo = models.DateField()
-	localDeBaptismo = models.CharField(max_length=50)
-	dataDeConsagracaoDiacono = models.DateField()
-	dataDeConsagracaoEvangelista = models.DateField()
-	dataDeConsagracaoPastor = models.DateField()
-	dataDeConsagracaoMissionario = models.DateField()
+	dataDeBaptismo = models.DateField(null=True,blank=True)
+	localDeBaptismo = models.CharField(max_length=50,null=True,blank=True)
+	dataDeConsagracaoDiacono = models.DateField(null=True,blank=True)
+	dataDeConsagracaoEvangelista = models.DateField(null=True,blank=True)
+	dataDeConsagracaoPastor = models.DateField(null=True,blank=True)
+	dataDeConsagracaoMissionario = models.DateField(null=True,blank=True)
 	departamento = models.ForeignKey(Departamento)
 	igreja = models.ForeignKey(Igreja)
 	numeroDeMembro= models.CharField(max_length=20)
-	#foto = models.ImageField(upload_to = 'fotos/')
+	foto = models.ImageField(upload_to = 'fotos/%Y/%m/%d',null=True,blank=True)
 
 	def __unicode__(self):
 		return unicode(self.nomeDoMembro)
@@ -155,6 +155,7 @@ class Funcionario(models.Model):
 	filiacaoMae = models.CharField(max_length=100)
 	numeroDeFuncionario= models.CharField(max_length=20)
 	salarioBase = models.FloatField(default=None)
+	foto = models.ImageField(upload_to = 'fotos/%Y/%m/%d',null=True,blank=True)
 
 	def __unicode__(self):
 		return unicode(self.nomeDoFuncionario)
@@ -254,6 +255,14 @@ class User(models.Model):
 
 	def __unicode__(self):
 		return unicode(self.userEmail)
+
+class Programa(models.Model):
+	diaDaSemana=models.CharField(max_length=25)
+	descricao=models.CharField(max_length=300)
+	def __unicode__(self):
+		return unicode(self.descricao)
+
+
 
 
 

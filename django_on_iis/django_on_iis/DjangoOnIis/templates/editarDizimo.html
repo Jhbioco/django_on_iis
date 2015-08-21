@@ -6,7 +6,7 @@
 
   <!-- Nav tabs -->
   <ul class="nav nav-tabs col-sm-10" role="tablist">
-    <li role="presentation" class="active" style="font-size:12px; font-family: fantasy;"><a href="#editarDizimo" aria-controls="editarDizimo" role="tab" data-toggle="tab">Editar Dízimo</a></li>
+    <li role="presentation" class="active" style="font-size:12px; "><a href="#editarDizimo" aria-controls="editarDizimo" role="tab" data-toggle="tab">Editar Dízimo</a></li>
   </ul>
 
   <!-- Tab panes -->
@@ -47,7 +47,7 @@
 
   <label class="control-label col-sm-2" for="email">Data:</label>
      <div class="col-sm-9">          
-        <input type="text" class="form-control" id="dataDoDizimo" name = "dataDoDizimo"placeholder="Data" value="{%for resultado in resultado %}{{resultado.dataDoDizimo}}{% endfor %}">
+        <input type="text" class="form-control" id="dataDoDizimo" name = "dataDoDizimo"placeholder="Data" value="{%for resultado in resultado %}{{resultado.dataDoDizimo.year}}-{{resultado.dataDoDizimo.month}}-{{resultado.dataDoDizimo.day}}{% endfor %}">
       </div>
 
        <label class="control-label col-sm-2" for="email">Mês:</label>
@@ -78,7 +78,7 @@
       margin-top: 10px;
       margin-left: auto;
       margin-right: auto;
-      font-family: fantasy;
+
       
       }
     .col-sm-9{

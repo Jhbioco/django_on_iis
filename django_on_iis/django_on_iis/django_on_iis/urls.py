@@ -6,7 +6,7 @@ from django.contrib import admin
 
 urlpatterns = [
     # Examples:
-    url(r'^login/$', 'DjangoOnIis.views.login', name='login'),
+    #url(r'^login/$', 'DjangoOnIis.views.login', name='login'),
     url(r'^gestao/$', 'DjangoOnIis.views.home', name='home'),
     url(r'^gestao/membro/editar/$', 'DjangoOnIis.views.editarMembro', name='editarMembro'),
     url(r'^gestao/membro/eliminar/$', 'DjangoOnIis.views.eliminarMembro', name='eliminarMembro'),
@@ -48,6 +48,9 @@ urlpatterns = [
          #Noticias e eventos --------------------------------------
      url(r'^gestao/noticias/$' ,'DjangoOnIis.views.indexNoticias', name='indexNoticias'),
      url(r'^gestao/noticias/lermais$' ,'DjangoOnIis.views.lerNoticias', name='lerNoticias'),
+      url(r'^gestao/noticias/pesquisar/$' ,'DjangoOnIis.views.pesquisarNoticia', name='pesquisarNoticia'),
+     url(r'^gestao/noticias/editar$' ,'DjangoOnIis.views.EditarNotica', name='EditarNotica'),
+     url(r'^gestao/noticias/eliminar$' ,'DjangoOnIis.views.eliminarNotica', name='eliminarNotica'),
      #url(r'^gestao/noticias/visualizar$' ,'DjangoOnIis.views.visualizarNoticias', name='visualizarNoticias'),
      #url(r'^gestao/eventos$' ,'DjangoOnIis.views.eventos', name='eventos'),
 
@@ -58,6 +61,7 @@ urlpatterns = [
      #HOME
      url(r'^$' ,'DjangoOnIis.views.home_site', name='home_site'),
      url(r'^gestao/homeum$' ,'DjangoOnIis.views.homeUm', name='homeUm'),
+     url(r'^gestao/programa$' ,'DjangoOnIis.views.programa', name='programa'),
 
 
 

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Pais,Provincia,Municipio,Igreja,Departamento,Membro, Dizimo, Projeto, Oferta, Contribuicao, Salario, Funcionario,User
+from .models import Pais,Provincia,Municipio,Igreja,Departamento,Membro,Programa, Dizimo, Projeto, Oferta, Contribuicao, Salario, Funcionario,User
 # Register your models here.
 admin.site.register(Pais)
 admin.site.register(Provincia)
@@ -14,3 +14,4 @@ admin.site.register(Contribuicao)
 admin.site.register(Salario)
 admin.site.register(Funcionario)
 admin.site.register(User)
+admin.site.register(Programa)

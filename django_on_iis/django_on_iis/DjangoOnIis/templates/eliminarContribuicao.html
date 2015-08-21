@@ -6,13 +6,13 @@
 
   <!-- Nav tabs -->
   <ul class="nav nav-tabs col-sm-10" role="tablist">
-    <li role="presentation" class="active" style="font-size:12px; font-family: fantasy;"><a href="#eliminarContribuicao" aria-controls="eliminarContribuicao" role="tab" data-toggle="tab">Eliminar Contribuição</a></li>
+    <li role="presentation" class="active" style="font-size:12px; "><a href="#eliminarContribuicao" aria-controls="eliminarContribuicao" role="tab" data-toggle="tab">Eliminar Contribuição</a></li>
   </ul>
 
   <!-- Tab panes -->
   <div class="tab-content col-sm-10" style = "background-color: white; box-shadow: 2px 10px 10px 3px grey;">
   
-    <div role="tabpanel" class="tab-pane fade in active" id="eliminarContribuicao"style="font-size:12px; font-family: fantasy; margin-top: 10px;">
+    <div role="tabpanel" class="tab-pane fade in active" id="eliminarContribuicao"style="font-size:12px; margin-top: 10px;">
 Esta prestes a eliminar a contribuição do membro {% for membro in membro %} <b style="color:red"> {{membro.nomeDoMembro}}{% endfor %},</b> no valor de  <b style="color:red">{% for resultado in resultado %}{{resultado.valorDaContribuicao}}{% endfor %},</b> para o projeto <b style="color:red">{%for projeto in projeto%}{{projeto.descricaoDoProjeto}}.{%endfor%}</b>
 Deseja continuar a operação?<p></p>
 

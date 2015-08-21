@@ -7,15 +7,21 @@
 
   <!-- Nav tabs -->
   <ul class="nav nav-tabs col-sm-10" role="tablist">
-    <li role="presentation" class="active" style="font-size:12px; font-family: fantasy;"><a href="#pesquisarFuncionario" aria-controls="pesquisarFuncionario" role="tab" data-toggle="tab">Pesquisar Funcionário</a></li>
+    <li role="presentation" class="active" style="font-size:12px; "><a href="#pesquisarFuncionario" aria-controls="pesquisarFuncionario" role="tab" data-toggle="tab">Pesquisar Funcionário</a></li>
   </ul>
 
   <!-- Tab panes -->
   <div class="tab-content col-sm-10" style = "background-color: white; box-shadow: 2px 10px 10px 3px grey;">
   
-    <div role="tabpanel" class="tab-pane fade in active" id="pesquisarFuncionario" style="font-size:12px; font-family: fantasy; margin-top: 10px;">
+    <div role="tabpanel" class="tab-pane fade in active" id="pesquisarFuncionario" style="font-size:12px;  margin-top: 10px;">
   <form class="form-horizontal" role="form" method="POST">
 <div class="form-group" style="margin-left:3px;">
+ <fieldset>
+<legend>Fotografia</legend> 
+<div class="col-sm-2" style="margin-left:60%;">
+<img src="/media/{{resultado.foto}}" width="200" heigth="400"><p></p>  
+</div>
+</fieldset>
 <fieldset>
 <legend>Dados Pessoais </legend>      
 <table style="width:50%">

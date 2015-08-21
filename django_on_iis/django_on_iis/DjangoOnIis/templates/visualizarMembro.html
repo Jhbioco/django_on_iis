@@ -7,20 +7,27 @@
 
   <!-- Nav tabs -->
   <ul class="nav nav-tabs col-sm-10" role="tablist">
-    <li role="presentation" class="active" style="font-size:12px; font-family: fantasy;"><a href="#visualizarMembro" aria-controls="visualizarMembro" role="tab" data-toggle="tab">Visualizar Membro</a></li>
+    <li role="presentation" class="active" style="font-size:12px;"><a href="#visualizarMembro" aria-controls="visualizarMembro" role="tab" data-toggle="tab">Visualizar Membro</a></li>
   </ul>
 
   <!-- Tab panes -->
   <div class="tab-content col-sm-10" style = "background-color: white; box-shadow: 2px 10px 10px 3px grey;">
-    <div role="tabpanel" class="tab-pane fade in active" id="visualizarMembro" style="font-size:12px; font-family: fantasy; margin-top: 10px;">
+    <div role="tabpanel" class="tab-pane fade in active" id="visualizarMembro" style="font-size:12px; margin-top: 10px;">
   <form class="form-horizontal" role="form" method="GET">{% csrf_token %}
   {{form.errors}}
 <div class="form-group" style="margin-left:3px;">
+  <fieldset>
+<legend>Fotografia</legend> 
+<div class="col-sm-2" style="margin-left:60%;">
+{% for resultado in resultado %}<img src="/media/{{resultado.foto}}" width="200" heigth="400"><p></p>  
+</div>
+</fieldset>
 <fieldset>
 <legend>Dados Pessoais <a style ="font-size:13px;" href="/gestao/financas/dizimos/visualizar?id={%for resultado in resultado%}{{resultado.id}}{%endfor%}">(ver dízimos)</a> / <a style ="font-size:13px;" href="/gestao/financas/contribuicao/visualizar?id={%for resultado in resultado%}{{resultado.id}}{%endfor%}">(ver contribuicões)</a>
-</legend>      
+</legend>
+ 
 <table style="width:50%">
-   {% for resultado in resultado %}
+  
   <tr>
     <td>Nome:</td>
     <td><b>{{resultado.nomeDoMembro}}</b></td>

@@ -3,10 +3,11 @@
 # vim: set fileencoding=utf8 :
 from django.shortcuts import render
 from django.http import  HttpResponse,HttpResponseRedirect
-from .models import Pais,Provincia, Municipio, Igreja, Departamento, Membro,Dizimo,Contribuicao,Oferta,Projeto, Funcionario, Salario, User
+from .models import Pais,Provincia,Programa, Municipio, Igreja, Departamento, Membro,Dizimo,Contribuicao,Oferta,Projeto, Funcionario, Salario, User
 #from .forms import IgrejaForm
 from django.db import connection
-from .forms import MembroForm,DizimoForm,ContribuicaoForm,ProjetoForm,OfertaForm, FuncionarioForm, SalarioForm, UserForm
+from .forms import MembroForm,DizimoForm,ProgramaForm,ContribuicaoForm,ProjetoForm,OfertaForm, FuncionarioForm, SalarioForm, UserForm, PesquisarNoticiaForm
+
 from .forms import EquipamentoForm
 from .models import Equipamento
 from .forms import NoticiasForm,EventosForm,ComentariosForm
@@ -16,7 +17,7 @@ from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import letter, A4
 from reportlab.lib.pagesizes import landscape
 import sys 
-import time
+import time, datetime
 
 reload(sys)  
 sys.setdefaultencoding('utf8')
@@ -62,7 +63,7 @@ def homeMembro(request):
 
 
 	if request.method == 'POST':
-		form = MembroForm(request.POST)
+		form = MembroForm(request.POST , request.FILES)
 		if form.is_valid():
 			provincia = Provincia.objects.get(nomeDaProvincia=form.cleaned_data['provincia'])
 			pais = Pais.objects.get(nomeDoPais=form.cleaned_data['pais'])
@@ -97,7 +98,7 @@ def homeMembro(request):
 			numeroDeMembro = form.cleaned_data['numeroDeMembro']
 			
 
-			new_membro, created = Membro.objects.get_or_create(nomeDoMembro=nomeDoMembro, estadoCivil=estadoCivil, sexo=sexo,
+			new_membro=Membro(nomeDoMembro=nomeDoMembro, estadoCivil=estadoCivil, sexo=sexo,
 				cargo = cargo, funcaoNaIgreja=funcaoNaIgreja, endereco=endereco, bairro=bairro, provincia=provincia, caixaPostal=caixaPostal,
 				telefone=telefone, email=email, dataDeNascimento=dataDeNascimento, pais=pais, grauAcademico=grauAcademico,
 				profissao=profissao, numeroDeIdentificacao=numeroDeIdentificacao, conjuge=conjuge, filiacaoPai=filiacaoPai,
@@ -105,7 +106,8 @@ def homeMembro(request):
 				dataDeBaptismo=dataDeBaptismo, localDeBaptismo=localDeBaptismo, dataDeConsagracaoDiacono= dataDeConsagracaoDiacono,
 				dataDeConsagracaoEvangelista= dataDeConsagracaoEvangelista, dataDeConsagracaoPastor=dataDeConsagracaoPastor,
 				dataDeConsagracaoMissionario=dataDeConsagracaoMissionario, departamento=departamento,igreja=igreja,
-				numeroDeMembro=numeroDeMembro)
+				numeroDeMembro=numeroDeMembro,foto=request.FILES['foto'])
+			salvar=new_membro.save()
 	else:
 		form = MembroForm()
 
@@ -242,51 +244,42 @@ def editarMembro(request):
 	resultado = get_editar_membro(valor)
 	print resultado
 	if request.method == 'POST':
-		form = MembroForm(request.POST)
+		form = MembroForm(request.POST, request.FILES)
 		if form.is_valid():
-			provincia = Provincia.objects.get(nomeDaProvincia=form.cleaned_data['provincia'])
-			pais = Pais.objects.get(nomeDoPais=form.cleaned_data['pais'])
-			departamento = Departamento.objects.get(nomeDoDepartamento=form.cleaned_data['departamento'])
-			igreja = Igreja.objects.get(nomeDaIgreja=form.cleaned_data['igreja'])
-			nomeDoMembro = form.cleaned_data['nomeDoMembro']
-			estadoCivil = form.cleaned_data['estadoCivil']
-			sexo = form.cleaned_data['sexo']
-			cargo = form.cleaned_data['cargo']
-			funcaoNaIgreja = form.cleaned_data['funcaoNaIgreja']
-			endereco = form.cleaned_data['endereco']
-			bairro = form.cleaned_data['bairro']
-			caixaPostal = form.cleaned_data['caixaPostal']
-			telefone = form.cleaned_data['telefone']
-			email = form.cleaned_data['email']
-			dataDeNascimento = form.cleaned_data['dataDeNascimento']
-			grauAcademico = form.cleaned_data['grauAcademico']
-			profissao = form.cleaned_data['profissao']
-			numeroDeIdentificacao = form.cleaned_data['numeroDeIdentificacao']
-			conjuge = form.cleaned_data['conjuge']
-			filiacaoPai = form.cleaned_data['filiacaoPai']
-			filiacaoMae = form.cleaned_data['filiacaoMae']
-			dataDeConversao = form.cleaned_data['dataDeConversao']
-			procedencia = form.cleaned_data['procedencia']
-			formaDeAdmissao = form.cleaned_data['formaDeAdmissao']
-			dataDeBaptismo = form.cleaned_data['dataDeBaptismo']
-			localDeBaptismo = form.cleaned_data['localDeBaptismo']
-			dataDeConsagracaoDiacono = form.cleaned_data['dataDeConsagracaoDiacono']
-			dataDeConsagracaoEvangelista = form.cleaned_data['dataDeConsagracaoEvangelista']
-			dataDeConsagracaoPastor = form.cleaned_data['dataDeConsagracaoPastor']
-			dataDeConsagracaoMissionario = form.cleaned_data['dataDeConsagracaoMissionario']
-			numeroDeMembro = form.cleaned_data['numeroDeMembro']
-
-			
-
-			created = Membro.objects.filter(pk=valor).update(nomeDoMembro=nomeDoMembro, estadoCivil=estadoCivil, sexo=sexo,
-				cargo = cargo, funcaoNaIgreja=funcaoNaIgreja, endereco=endereco, bairro=bairro, provincia=provincia, caixaPostal=caixaPostal,
-				telefone=telefone, email=email, dataDeNascimento=dataDeNascimento, pais=pais, grauAcademico=grauAcademico,
-				profissao=profissao, numeroDeIdentificacao=numeroDeIdentificacao, conjuge=conjuge, filiacaoPai=filiacaoPai,
-				filiacaoMae=filiacaoMae, dataDeConversao=dataDeConversao, procedencia=procedencia, formaDeAdmissao= formaDeAdmissao,
-				dataDeBaptismo=dataDeBaptismo, localDeBaptismo=localDeBaptismo, dataDeConsagracaoDiacono= dataDeConsagracaoDiacono,
-				dataDeConsagracaoEvangelista= dataDeConsagracaoEvangelista, dataDeConsagracaoPastor=dataDeConsagracaoPastor,
-				dataDeConsagracaoMissionario=dataDeConsagracaoMissionario, departamento=departamento,igreja=igreja,
-				numeroDeMembro=numeroDeMembro)
+			resultado = Membro.objects.get(pk=valor)
+			resultado.provincia = Provincia.objects.get(nomeDaProvincia=form.cleaned_data['provincia'])
+			resultado.pais = Pais.objects.get(nomeDoPais=form.cleaned_data['pais'])
+			resultado.departamento = Departamento.objects.get(nomeDoDepartamento=form.cleaned_data['departamento'])
+			resultado.igreja = Igreja.objects.get(nomeDaIgreja=form.cleaned_data['igreja'])
+			resultado.nomeDoMembro = form.cleaned_data['nomeDoMembro']
+			resultado.estadoCivil = form.cleaned_data['estadoCivil']
+			resultado.sexo = form.cleaned_data['sexo']
+			resultado.cargo = form.cleaned_data['cargo']
+			resultado.funcaoNaIgreja = form.cleaned_data['funcaoNaIgreja']
+			resultado.endereco = form.cleaned_data['endereco']
+			resultado.bairro = form.cleaned_data['bairro']
+			resultado.caixaPostal = form.cleaned_data['caixaPostal']
+			resultado.telefone = form.cleaned_data['telefone']
+			resultado.email = form.cleaned_data['email']
+			resultado.dataDeNascimento = form.cleaned_data['dataDeNascimento']
+			resultado.grauAcademico = form.cleaned_data['grauAcademico']
+			resultado.profissao = form.cleaned_data['profissao']
+			resultado.numeroDeIdentificacao = form.cleaned_data['numeroDeIdentificacao']
+			resultado.conjuge = form.cleaned_data['conjuge']
+			resultado.filiacaoPai = form.cleaned_data['filiacaoPai']
+			resultado.filiacaoMae = form.cleaned_data['filiacaoMae']
+			resultado.dataDeConversao = form.cleaned_data['dataDeConversao']
+			resultado.procedencia = form.cleaned_data['procedencia']
+			resultado.formaDeAdmissao = form.cleaned_data['formaDeAdmissao']
+			resultado.dataDeBaptismo = form.cleaned_data['dataDeBaptismo']
+			resultado.localDeBaptismo = form.cleaned_data['localDeBaptismo']
+			resultado.dataDeConsagracaoDiacono = form.cleaned_data['dataDeConsagracaoDiacono']
+			resultado.dataDeConsagracaoEvangelista = form.cleaned_data['dataDeConsagracaoEvangelista']
+			resultado.dataDeConsagracaoPastor = form.cleaned_data['dataDeConsagracaoPastor']
+			resultado.dataDeConsagracaoMissionario = form.cleaned_data['dataDeConsagracaoMissionario']
+			resultado.numeroDeMembro = form.cleaned_data['numeroDeMembro']
+			resultado.foto=request.FILES['foto']
+			resultado.save()
 			return HttpResponseRedirect('/gestao/membro/pesquisar/')
 
 	else:
@@ -567,7 +560,7 @@ def totalValores(request):
 
 def funcionario(request):
 	if request.method == 'POST':
-		form = FuncionarioForm(request.POST)
+		form = FuncionarioForm(request.POST,request.FILES)
 		if form.is_valid():
 			nomeDoFuncionario = form.cleaned_data['nomeDoFuncionario']
 			estadoCivil = form.cleaned_data['estadoCivil']
@@ -588,12 +581,14 @@ def funcionario(request):
 			filiacaoMae = form.cleaned_data['filiacaoMae']
 			numeroDeFuncionario = form.cleaned_data['numeroDeFuncionario']
 			salarioBase = form.cleaned_data['salarioBase']
+			
 
-			new_funcionario, created = Funcionario.objects.get_or_create(nomeDoFuncionario=nomeDoFuncionario,estadoCivil=estadoCivil,
+			new_funcionario= Funcionario(nomeDoFuncionario=nomeDoFuncionario,estadoCivil=estadoCivil,
 				sexo=sexo, cargo=cargo, endereco=endereco, bairro=bairro, provincia=provincia,caixaPostal=caixaPostal, telefone=telefone,
 				email=email, dataDeNascimento=dataDeNascimento, pais=pais, grauAcademico=grauAcademico, profissao=profissao,
 				numeroDeIdentificacao=numeroDeIdentificacao, filiacaoPai=filiacaoPai, filiacaoMae=filiacaoMae, numeroDeFuncionario=numeroDeFuncionario,
-				salarioBase=salarioBase)
+				salarioBase=salarioBase,foto=request.FILES['foto'])
+			new_funcionario.save()
 			return HttpResponseRedirect('/gestao/rh/funcionario/pesquisar/')
 	else:
 		form= FuncionarioForm()
@@ -758,33 +753,30 @@ def editarFuncionario(request):
 	resultado = Funcionario.objects.get(pk=valor)
 	print resultado
 	if request.method == 'POST':
-		form = FuncionarioForm(request.POST)
+		form = FuncionarioForm(request.POST,request.FILES)
 		if form.is_valid():
-			nomeDoFuncionario = form.cleaned_data['nomeDoFuncionario']
-			estadoCivil = form.cleaned_data['estadoCivil']
-			sexo = form.cleaned_data['sexo']
-			cargo = form.cleaned_data['cargo']
-			endereco = form.cleaned_data['endereco']
-			bairro = form.cleaned_data['bairro']
-			provincia = Provincia.objects.get(nomeDaProvincia=form.cleaned_data['provincia'])
-			caixaPostal = form.cleaned_data['caixaPostal']
-			telefone = form.cleaned_data['telefone']
-			email = form.cleaned_data['email']
-			dataDeNascimento = form.cleaned_data['dataDeNascimento']
-			pais = Pais.objects.get(nomeDoPais=form.cleaned_data['pais'])
-			grauAcademico = form.cleaned_data['grauAcademico']
-			profissao = form.cleaned_data['profissao']
-			numeroDeIdentificacao = form.cleaned_data['numeroDeIdentificacao']
-			filiacaoPai = form.cleaned_data['filiacaoPai']
-			filiacaoMae = form.cleaned_data['filiacaoMae']
-			numeroDeFuncionario = form.cleaned_data['numeroDeFuncionario']
-			salarioBase = form.cleaned_data['salarioBase']
-
-			created = Funcionario.objects.filter(pk=valor).update(nomeDoFuncionario=nomeDoFuncionario,estadoCivil=estadoCivil,
-				sexo=sexo, cargo=cargo, endereco=endereco, bairro=bairro, provincia=provincia,caixaPostal=caixaPostal, telefone=telefone,
-				email=email, dataDeNascimento=dataDeNascimento, pais=pais, grauAcademico=grauAcademico, profissao=profissao,
-				numeroDeIdentificacao=numeroDeIdentificacao, filiacaoPai=filiacaoPai, filiacaoMae=filiacaoMae, numeroDeFuncionario=numeroDeFuncionario,
-				salarioBase=salarioBase)
+			resultado = Funcionario.objects.get(pk=valor)
+			resultado.nomeDoFuncionario = form.cleaned_data['nomeDoFuncionario']
+			resultado.estadoCivil = form.cleaned_data['estadoCivil']
+			resultado.sexo = form.cleaned_data['sexo']
+			resultado.cargo = form.cleaned_data['cargo']
+			resultado.endereco = form.cleaned_data['endereco']
+			resultado.bairro = form.cleaned_data['bairro']
+			resultado.provincia = Provincia.objects.get(nomeDaProvincia=form.cleaned_data['provincia'])
+			resultado.caixaPostal = form.cleaned_data['caixaPostal']
+			resultado.telefone = form.cleaned_data['telefone']
+			resultado.email = form.cleaned_data['email']
+			resultado.dataDeNascimento = form.cleaned_data['dataDeNascimento']
+			resultado.pais = Pais.objects.get(nomeDoPais=form.cleaned_data['pais'])
+			resultado.grauAcademico = form.cleaned_data['grauAcademico']
+			resultado.profissao = form.cleaned_data['profissao']
+			resultado.numeroDeIdentificacao = form.cleaned_data['numeroDeIdentificacao']
+			resultado.filiacaoPai = form.cleaned_data['filiacaoPai']
+			resultado.filiacaoMae = form.cleaned_data['filiacaoMae']
+			resultado.numeroDeFuncionario = form.cleaned_data['numeroDeFuncionario']
+			resultado.salarioBase = form.cleaned_data['salarioBase']
+			resultado.foto=request.FILES['foto']
+			resultado.save()
 			return HttpResponseRedirect('/gestao/rh/funcionario/pesquisar/')
 	else:
 		form= FuncionarioForm()
@@ -1004,7 +996,7 @@ def get_noticias_unica(idd):
 
 def get_comentarios(idd):
 	query = connection.cursor()
-	query.execute("select * from DjangoOnIis_comentarios where noticia_id = '%s'" % idd);
+	query.execute("select * from DjangoOnIis_comentarios where noticia_id = '%s' order by id desc" % idd);
 	return dictfetchall(query)
 
 def noticias(request):
@@ -1036,6 +1028,7 @@ def publicarNoticia(request):
 			new_foto = Noticias(foto=request.FILES['foto'],titulo = form.cleaned_data['titulo'],noticia=form.cleaned_data['noticia'],
 				funcionario=Membro.objects.get(nomeDoMembro=form.cleaned_data['funcionario']),dataPublicacao = form.cleaned_data['dataPublicacao'],tipo=form.cleaned_data['tipo'])
 			foto = new_foto.save()
+			return HttpResponseRedirect('/gestao/')
 
 			
 
@@ -1073,6 +1066,7 @@ def configuracoes(request):
 				texto2=form.cleaned_data['texto2'],texto3=form.cleaned_data['texto3'],texto4=form.cleaned_data['texto4'],texto5=form.cleaned_data['texto5']
 				,texto6=form.cleaned_data['texto6'],desenvolvedores=form.cleaned_data['desenvolvedores'])
 			imagem=new_configuracoes.save()
+			return HttpResponseRedirect('/gestao/')
 
 	else:
 		form=ConfiguracoesForm()
@@ -1099,7 +1093,6 @@ def lerNoticias(request):
 	if request.method=='POST':
 		form = ComentariosForm(request.POST)
 		if form.is_valid():
-			print 'fghghjsh shhsdfsdgsdv '
 			print Membro.objects.get(nomeDoMembro=form.cleaned_data['autor'])
 			print Noticias.objects.get(titulo=form.cleaned_data['noticia'])
 
@@ -1143,23 +1136,35 @@ def get_noticias_normal():
 	query.execute("select id,noticia, titulo,foto,dataPublicacao,tipo from DjangoOnIis_noticias where tipo = 'Normal' order by dataPublicacao desc limit 6");
 	return dictfetchall(query)
 
+def get_programa():
+	query = connection.cursor()
+	query.execute("select * from DjangoOnIis_programa order by field(diaDaSemana, 'Segunda-Feira','Terça-Feira','Quarta-Feira','Quinta-Feira','Sexta-Feira','Sábado','Domingo')");
+	return dictfetchall(query)
+
 
 def home_site(request):
 	template='home_site.html'
 	noticias_destaques=get_noticias_destaque()
+	noticia1 = ''
+	noticia2 = ''
+	noticia3 = ''
 	try:
-
-		noticia1=noticias_destaques[0]
-		noticia2=noticias_destaques[1]
-		noticia3=noticias_destaques[2]
+		for i in range(len(noticias_destaques)):
+			if i==0:
+				noticia1=noticias_destaques[i]
+			elif i==1:
+				noticia2=noticias_destaques[i]
+			
+			else:
+				noticia3=noticias_destaques[i]
 	except IndexError:
 		noticia1=''
 		noticia2=''
 		noticia3=''
 
-
 	devocional=Noticias.objects.filter(tipo='Devocional').order_by('-id')
 	ultimo_devocional=Noticias.objects.filter(tipo='Devocional').last()
+	programa= get_programa()
 
 	eventos=get_eventos() #Noticias.objects.filter(tipo='Evento')
 	noticiasNormais=get_noticias_normal()
@@ -1169,7 +1174,7 @@ def home_site(request):
 
 
 	configuracoes = Configuracoes.objects.last()
-	return render(request,template,{'configuracoes':configuracoes,'noticias_destaques':noticias_destaques, 'noticia1':noticia1,'noticia2':noticia2, 'noticia3':noticia3,'noticiasNormais':noticiasNormais,'eventos':eventos,'devocional':devocional,'ultimo_devocional':ultimo_devocional})
+	return render(request,template,{'configuracoes':configuracoes,'noticias_destaques':noticias_destaques, 'noticia1':noticia1,'noticia2':noticia2, 'noticia3':noticia3,'noticiasNormais':noticiasNormais,'eventos':eventos,'devocional':devocional,'ultimo_devocional':ultimo_devocional,'programa':programa})
 
 
 def homeUm(request):
@@ -1192,12 +1197,71 @@ def homeUm(request):
 
 	return render(request,template,{'configuracoes':configuracoes,'noticias_destaques':noticias_destaques, 'noticia1':noticia1,'noticia2':noticia2, 'noticia3':noticia3,'noticiasNormais':noticiasNormais,'eventos':eventos,'devocional':devocional,'ultimo_devocional':ultimo_devocional})
 
+def pesquisarNoticia(request):
+	
+	tipo=request.GET.get('tipo')
+	if tipo:
+		resultado=Noticias.objects.filter(tipo=tipo).order_by('-dataPublicacao')
+	if tipo==None or tipo=='Todos':
+		resultado=Noticias.objects.all().order_by('-dataPublicacao')
+	template='pesquisarNoticia.html'
+	return render(request,template,{'resultado':resultado,'tipo':tipo})
 
 
 
 
+def EditarNotica(request):
+	idd = request.GET.get('id')
+	resultado = Noticias.objects.get(pk=idd)
+	print '-----------',resultado.noticia
+	if request.method== 'POST':
+		form=NoticiasForm(request.POST, request.FILES)
+		if form.is_valid():
+			print 'olaaaaa'			
+			resultado = Noticias.objects.get(pk=idd)
+			resultado.foto=request.FILES['foto']
+			resultado.titulo = form.cleaned_data['titulo']
+			resultado.noticia=form.cleaned_data['noticia']
+			resultado.funcionario=Membro.objects.get(nomeDoMembro=form.cleaned_data['funcionario'])
+			resultado.dataPublicacao = date.today()
+			resultado.tipo=form.cleaned_data['tipo']
+			resultado.save()
+			return HttpResponseRedirect('/gestao/noticias/pesquisar/')
 
-"""def cartaDeRecomendacao(request):
+			#new_publicarNoticia, created=Noticias.objects.get_or_create(titulo=titulo,noticia=noticia,foto=foto)
+	else:
+		form=NoticiasForm()
+	template='editarNoticia.html'
+	membro= Membro.objects.order_by('nomeDoMembro')
+	noticias=Noticias.objects.all()
+	return render(request,template,{'form':form,'membro':membro,'noticia':noticias,'resultado':resultado})
+
+
+def removerNoticia(valor):
+	query = connection.cursor()
+	query.execute("delete from DjangoOnIis_noticias where id = '%s'" % valor);
+	return dictfetchall(query)
+
+
+def eliminarNotica(request):
+	idd = request.GET.get('id')
+	print idd
+	resultado = Noticias.objects.get(pk=idd)
+	print resultado
+	
+	if request.method == 'POST':
+		form = NoticiasForm(request.POST)
+		removerNoticia(idd)
+		return HttpResponseRedirect('/gestao/noticias/pesquisar/')
+	else:
+		form = NoticiasForm()
+	template = 'eliminarNoticia.html'
+	return render(request, template, {'form':form, 'resultado':resultado})
+
+
+
+
+def cartaDeRecomendacao(request):
 
     # Create the HttpResponse object with the appropriate PDF headers.
     other = Membro.objects.last()
@@ -1232,7 +1296,24 @@ def homeUm(request):
     return response
 
 
-def login(request):
+
+def programa(request):
+
+	if request.method=='POST':
+		form = ProgramaForm(request.POST)
+		if form.is_valid():
+
+
+			new_configuracoes=Programa(diaDaSemana =form.cleaned_data['diaDaSemana'],descricao=form.cleaned_data['descricao'])
+			new_configuracoes.save()
+			return HttpResponseRedirect('/gestao/')
+	else:
+		form=ProgramaForm()
+	template='inserirPrograma.html'
+	return render(request,template,{'form':form})
+
+
+"""def login(request):
 	email = request.GET.get('email')
 	password = request.GET.get('password')
 	content =''
@@ -1257,6 +1338,7 @@ def pesquisarUser(email,password):
     query = connection.cursor()
     query.execute("select * from DjangoOnIis_user where userEmail = '' and userPassword=''" %(email, password));
     return dictfetchall(query) """
+
 
 
 

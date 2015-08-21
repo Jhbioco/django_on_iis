@@ -6,13 +6,13 @@
 
   <!-- Nav tabs -->
   <ul class="nav nav-tabs col-sm-10" role="tablist">
-    <li role="presentation" class="active" style="font-size:12px; font-family: fantasy;"><a href="#editarFuncionario" aria-controls="editarFuncionario" role="tab" data-toggle="tab">Editar Funcionário</a></li>
+    <li role="presentation" class="active" style="font-size:12px; "><a href="#editarFuncionario" aria-controls="editarFuncionario" role="tab" data-toggle="tab">Editar Funcionário</a></li>
   </ul>
 
   <!-- Tab panes -->
   <div class="tab-content col-sm-10" style = "background-color: white; box-shadow: 2px 10px 10px 3px grey;">
-    <div role="tabpanel" class="tab-pane fade in active" id="editarFuncionario" style="font-size:12px; font-family: fantasy; margin-top: 10px;">
- <form class="form-horizontal" role="form" method="POST">{% csrf_token %}
+    <div role="tabpanel" class="tab-pane fade in active" id="editarFuncionario" style="font-size:12px; margin-top: 10px;">
+ <form class="form-horizontal" role="form" method="POST" enctype="multipart/form-data">{% csrf_token %}
     {{form.errors}}
     <div class="form-group">
       <p><p>
@@ -81,7 +81,7 @@
 
        <label class="control-label col-sm-2" for="pwd">Data de nascimento:</label>
       <div class="col-sm-9">          
-        <input type="text" class="form-control" id="dataDeNascimento" name = "dataDeNascimento"placeholder="Data de nascimento" value="{{resultado.dataDeNascimento}}">
+        <input type="text" class="form-control" id="dataDeNascimento" name = "dataDeNascimento"placeholder="Data de nascimento" value="{{resultado.dataDeNascimento.year}}-{{resultado.dataDeNascimento.month}}-{{resultado.dataDeNascimento.day}}">
       </div>
  
       <label class="control-label col-sm-2" for="pwd">Nacionalidade:</label>
@@ -123,14 +123,11 @@
       <div class="col-sm-9">          
         <input type="text" class="form-control" id="salarioBase" name = "salarioBase"placeholder="Salário Base" value="{{resultado.salarioBase}}">
       </div>
-      <label class="control-label col-sm-2" for="pwd">Fotografia:</label> 
-
-      <div class="col-sm-9">  
-       <br>        
-        <input type="file" name="foto" accept="image/*">
-         <br>
-          <br>
-      </div>
+      <label class="control-label col-sm-2" for="email">{{form.foto.label_tag}}</label>
+       <div class="col-sm-9"> 
+       {{form.foto.errors}}    
+       {{form.foto}}
+       </div>
        
       <div class="col-sm-offset-2 col-sm-9">
         <button type="submit" class="btn btn-default">Gravar</button>
@@ -150,7 +147,6 @@
       margin-top: 10px;
       margin-left: auto;
       margin-right: auto;
-      font-family: fantasy;
       }
     .col-sm-9{
       margin-bottom: 6px;

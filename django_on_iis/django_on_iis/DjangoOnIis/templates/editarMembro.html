@@ -7,13 +7,13 @@
 
   <!-- Nav tabs -->
   <ul class="nav nav-tabs col-sm-10" role="tablist">
-    <li role="presentation" class="active" style="font-size:12px; font-family: fantasy;"><a href="#editarMembro" aria-controls="editarMembro" role="tab" data-toggle="tab">Editar Membro</a></li>
+    <li role="presentation" class="active" style="font-size:12px; "><a href="#editarMembro" aria-controls="editarMembro" role="tab" data-toggle="tab">Editar Membro</a></li>
   </ul>
 
   <!-- Tab panes -->
   <div class="tab-content col-sm-10" style = "background-color: white; box-shadow: 2px 10px 10px 3px grey;">
-    <div role="tabpanel" class="tab-pane fade in active" id="editarMembro" style="font-size:12px; font-family: fantasy; margin-top: 10px;">
-  <form class="form-horizontal" role="form" method="POST">{% csrf_token %}
+    <div role="tabpanel" class="tab-pane fade in active" id="editarMembro" style="font-size:12px;  margin-top: 10px;">
+  <form class="form-horizontal" role="form" method="POST" enctype="multipart/form-data">{% csrf_token %}
     {{form.errors}}
     <div class="form-group">
       <p><p>
@@ -87,7 +87,7 @@
 
        <label class="control-label col-sm-2" for="pwd">Nascimento:</label>
       <div class="col-sm-10">          
-        <input type="text" class="form-control" id="dataDeNascimento" name = "dataDeNascimento"placeholder="Data de Nascimento" value="{%for resultado in resultado %}{{resultado.dataDeNascimento}}{% endfor %}">
+        <input type="text" class="form-control" id="dataDeNascimento" name = "dataDeNascimento"placeholder="Data de Nascimento" value="{%for resultado in resultado %}{{resultado.dataDeNascimento.year}}-{{resultado.dataDeNascimento.month}}-{{resultado.dataDeNascimento.day}}{% endfor %}">
       </div>
  
       <label class="control-label col-sm-2" for="pwd">Nacionalidade:</label>
@@ -126,7 +126,7 @@
       </div>
       <label class="control-label col-sm-2" for="pwd">Conversão:</label>
       <div class="col-sm-10">          
-        <input type="text" class="form-control" id="dataDeConversao" name = "dataDeConversao"placeholder="Data de conversão" value="{%for resultado in resultado %}{{resultado.dataDeConversao}}{% endfor %}">
+        <input type="text" class="form-control" id="dataDeConversao" name = "dataDeConversao"placeholder="Data de conversão" value="{%for resultado in resultado %}{{resultado.dataDeConversao.year}}-{{resultado.dataDeConversao.month}}-{{resultado.dataDeConversao.day}}{% endfor %}">
       </div>
       <label class="control-label col-sm-2" for="pwd">Procedência:</label>
       <div class="col-sm-10">          
@@ -138,7 +138,7 @@
       </div>
       <label class="control-label col-sm-2" for="pwd">Baptismo:</label>
       <div class="col-sm-10">          
-        <input type="text" class="form-control" id="dataDeBaptismo" name = "dataDeBaptismo"placeholder="Data de baptismo" value="{%for resultado in resultado %}{{resultado.dataDeBaptismo}}{% endfor %}">
+        <input type="text" class="form-control" id="dataDeBaptismo" name = "dataDeBaptismo"placeholder="Data de baptismo" value="{%for resultado in resultado %}{{resultado.dataDeBaptismo.year}}-{{resultado.dataDeBaptismo.month}}-{{resultado.dataDeBaptismo.day}}{% endfor %}">
       </div>
       <label class="control-label col-sm-2" for="pwd">Local:</label>
       <div class="col-sm-10">          
@@ -147,19 +147,19 @@
       
       <label class="control-label col-sm-2" for="pwd">Diacono:</label>
       <div class="col-sm-10">          
-        <input type="text" class="form-control" id="dataDeConsagracaoDiacono" name = "dataDeConsagracaoDiacono"placeholder="Data de consagração a Diacono" value="{%for resultado in resultado %}{{resultado.dataDeConsagracaoDiacono}}{% endfor %}">
+        <input type="text" class="form-control" id="dataDeConsagracaoDiacono" name = "dataDeConsagracaoDiacono"placeholder="Data de consagração a Diacono" value="{%for resultado in resultado %}{{resultado.dataDeConsagracaoDiacono.year}}-{{resultado.dataDeConsagracaoDiacono.month}}-{{resultado.dataDeConsagracaoDiacono.day}}{% endfor %}">
       </div>
         <label class="control-label col-sm-2" for="pwd">Evangelista:</label>
       <div class="col-sm-10">          
-        <input type="text" class="form-control" id="dataDeConsagracaoEvangelista" name = "dataDeConsagracaoEvangelista"placeholder="Data de Consagração a Evangelista" value="{%for resultado in resultado %}{{resultado.dataDeConsagracaoEvangelista}}{% endfor %}">
+        <input type="text" class="form-control" id="dataDeConsagracaoEvangelista" name = "dataDeConsagracaoEvangelista"placeholder="Data de Consagração a Evangelista" value="{%for resultado in resultado %}{{resultado.dataDeConsagracaoEvangelista.year}}-{{resultado.dataDeConsagracaoEvangelista.month}}-{{resultado.dataDeConsagracaoEvangelista.day}}{% endfor %}">
       </div>
     <label class="control-label col-sm-2" for="pwd">Pastor:</label>
       <div class="col-sm-10">          
-        <input type="text" class="form-control" id="dataDeConsagracaoPastor" name = "dataDeConsagracaoPastor"placeholder="Data de Consagracao a Pastor" value="{%for resultado in resultado %}{{resultado.dataDeConsagracaoPastor}}{% endfor %}">
+        <input type="text" class="form-control" id="dataDeConsagracaoPastor" name = "dataDeConsagracaoPastor"placeholder="Data de Consagracao a Pastor" value="{%for resultado in resultado %}{{resultado.dataDeConsagracaoPastor.year}}-{{resultado.dataDeConsagracaoPastor.month}}-{{resultado.dataDeConsagracaoPastor.day}}{% endfor %}">
       </div>
         <label class="control-label col-sm-2" for="pwd">Missionário:</label>
       <div class="col-sm-10">          
-        <input type="text" class="form-control" id="dataDeConsagracaoMissionario" name = "dataDeConsagracaoMissionario"placeholder="Data de Consagração a Missionário" value="{%for resultado in resultado %}{{resultado.dataDeConsagracaoMissionario}}{% endfor %}">
+        <input type="text" class="form-control" id="dataDeConsagracaoMissionario" name = "dataDeConsagracaoMissionario"placeholder="Data de Consagração a Missionário" value="{%for resultado in resultado %}{{resultado.dataDeConsagracaoMissionario.year}}-{{resultado.dataDeConsagracaoMissionario.month}}-{{resultado.dataDeConsagracaoMissionario.day}}{% endfor %}">
       </div>
        <label class="control-label col-sm-2" for="pwd">Departamento:</label>
       <div class="col-sm-10">          
@@ -183,15 +183,11 @@
       <div class="col-sm-10">          
         <input type="text" class="form-control" id="numeroDeMembro" name = "numeroDeMembro"placeholder="Numero de membro" value="{%for resultado in resultado %}{{resultado.numeroDeMembro}}{% endfor %}">
       </div>
-      <label class="control-label col-sm-2" for="pwd">Fotografia:</label> 
-
-      <div class="col-sm-10">  
-       <br>        
-        <input type="file" name="foto" accept="image/*">
-         <br>
-          <br>
-      </div>
-       
+      <label class="control-label col-sm-2" for="email">{{form.foto.label_tag}}</label>
+     <div class="col-sm-9"> 
+     {{form.foto.errors}}    
+     {{form.foto}}
+     </div>
       <div class="col-sm-offset-2 col-sm-10">
         <button type="submit" class="btn btn-default">Gravar</button>
       </div>
@@ -211,7 +207,6 @@
       margin-top: 10px;
       margin-left: auto;
       margin-right: auto;
-      font-family: fantasy;
       }
     .col-sm-9{
       margin-bottom: 6px;

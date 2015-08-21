@@ -6,7 +6,7 @@
 
   <!-- Nav tabs -->
   <ul class="nav nav-tabs col-sm-10" role="tablist">
-    <li role="presentation" class="active" style="font-size:12px; font-family: fantasy;"><a href="#editarContribuicao" aria-controls="editarContribuicao" role="tab" data-toggle="tab">Editar Contribuição</a></li>
+    <li role="presentation" class="active" style="font-size:12px; "><a href="#editarContribuicao" aria-controls="editarContribuicao" role="tab" data-toggle="tab">Editar Contribuição</a></li>
   </ul>
 
   <!-- Tab panes -->
@@ -54,7 +54,7 @@
       </div>
   <label class="control-label col-sm-2" for="email">Data:</label>
      <div class="col-sm-9">          
-        <input type="text" class="form-control" id="dataDaContribuicao" name = "dataDaContribuicao"placeholder="Data da contribuição" value="{%for resultado in resultado%}{{resultado.dataDaContribuicao}}{%endfor%}">
+        <input type="text" class="form-control" id="dataDaContribuicao" name = "dataDaContribuicao"placeholder="Data da contribuição" value="{%for resultado in resultado%}{{resultado.dataDaContribuicao.year}}-{{resultado.dataDaContribuicao.month}}-{{resultado.dataDaContribuicao.day}}{%endfor%}">
       </div>
 
        <label class="control-label col-sm-2" for="email">Mês:</label>
@@ -83,7 +83,7 @@
       margin-top: 10px;
       margin-left: auto;
       margin-right: auto;
-      font-family: fantasy;
+     
       
       }
     .col-sm-9{

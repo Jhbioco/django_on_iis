@@ -2,18 +2,17 @@
 <!-- Custom styles for this template -->
 {% block content %}
 
+<div class="col-sm-9" >
+  <div>
 
-<div class="containerx">
-  <div class="btn-group">
-    <button type="button" class="btn btn-primary" >Novo Membro</button>
-    <button type="button" class="btn btn-primary">Pesquisa</button>
-    <button type="button" class="btn btn-primary">Visualizar e Editar</button>
-    <button type="button" class="btn btn-primary">Impressão</button>
-  </div>
-</div>
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs col-sm-10" role="tablist">
+    <li role="presentation" class="active" style="font-size:12px; font-family: fantasy;"><a href="#editarMembro" aria-controls="editarMembro" role="tab" data-toggle="tab">Editar Membro</a></li>
+  </ul>
 
-
-<div class="container">
+  <!-- Tab panes -->
+  <div class="tab-content col-sm-10" style = "background-color: white; box-shadow: 2px 10px 10px 3px grey;">
+    <div role="tabpanel" class="tab-pane fade in active" id="editarMembro" style="font-size:12px; font-family: fantasy; margin-top: 10px;">
   <form class="form-horizontal" role="form" method="POST">{% csrf_token %}
     {{form.errors}}
     <div class="form-group">
@@ -25,7 +24,7 @@
 
 
 
-      <label class="control-label col-sm-2" for="pwd">Estado Civil:</label>
+      <label class="control-label col-sm-2" for="pwd">Estado:</label>
       <div class="col-sm-10">          
        <select class="form-control input-sm" id="estadoCivil" name = "estadoCivil">
         <option></option>
@@ -49,7 +48,7 @@
       <div class="col-sm-10">          
         <input type="text" class="form-control" id="cargo" name = "cargo"placeholder="Cargo Profissional" value="{%for resultado in resultado %}{{resultado.cargo}}{% endfor %}">
       </div>
-      <label class="control-label col-sm-2" for="pwd">Função na Igreja:</label>
+      <label class="control-label col-sm-2" for="pwd">Função:</label>
       <div class="col-sm-10">          
         <input type="text" class="form-control" id="funcaoNaIgreja" name = "funcaoNaIgreja"placeholder="Função na Igreja" value="{%for resultado in resultado %}{{resultado.funcaoNaIgreja}}{% endfor %}">
       </div>
@@ -72,7 +71,7 @@
       </select>
       </div>
 
-      <label class="control-label col-sm-2" for="pwd">Caixa Postal:</label>
+      <label class="control-label col-sm-2" for="pwd">CP:</label>
       <div class="col-sm-10">          
         <input type="text" class="form-control" id="caixaPostal" name = "caixaPostal"placeholder="Caixa Postal" value="{%for resultado in resultado %}{{resultado.caixaPostal}}{% endfor %}">
       </div>
@@ -86,9 +85,9 @@
         <input type="text" class="form-control" id="email" name = "email"placeholder="E-mail" value="{%for resultado in resultado %}{{resultado.email}}{% endfor %}">
       </div>
 
-       <label class="control-label col-sm-2" for="pwd">Data de nascimento:</label>
+       <label class="control-label col-sm-2" for="pwd">Nascimento:</label>
       <div class="col-sm-10">          
-        <input type="text" class="form-control" id="dataDeNascimento" name = "dataDeNascimento"placeholder="Data de nascimento" value="{%for resultado in resultado %}{{resultado.dataDeNascimento}}{% endfor %}">
+        <input type="text" class="form-control" id="dataDeNascimento" name = "dataDeNascimento"placeholder="Data de Nascimento" value="{%for resultado in resultado %}{{resultado.dataDeNascimento}}{% endfor %}">
       </div>
  
       <label class="control-label col-sm-2" for="pwd">Nacionalidade:</label>
@@ -100,7 +99,7 @@
         {% endfor %}
       </select>
       </div>
-      <label class="control-label col-sm-2" for="pwd">Grau acadêmicao:</label>
+      <label class="control-label col-sm-2" for="pwd">Grau:</label>
       <div class="col-sm-10">          
         <input type="text" class="form-control" id="grauAcademico" name = "grauAcademico"placeholder="Grau Acadêmico" value="{%for resultado in resultado %}{{resultado.grauAcademico}}{% endfor %}">
       </div>
@@ -109,7 +108,7 @@
         <input type="text" class="form-control" id="profissao" name = "profissao"placeholder="Profissão" value="{%for resultado in resultado %}{{resultado.profissao}}{% endfor %}">
       </div>
 
-      <label class="control-label col-sm-2" for="pwd">Número de identificação:</label>
+      <label class="control-label col-sm-2" for="pwd">BI:</label>
       <div class="col-sm-10">          
         <input type="text" class="form-control" id="numeroDeIdentificacao" name = "numeroDeIdentificacao"placeholder="Número de Identificação" value="{%for resultado in resultado %}{{resultado.numeroDeIdentificacao}}{% endfor %}" >
       </div>
@@ -125,7 +124,7 @@
       <div class="col-sm-10">          
         <input type="text" class="form-control" id="filiacaoMae" name = "filiacaoMae"placeholder="Mãe" value="{%for resultado in resultado %}{{resultado.filiacaoMae}}{% endfor %}">
       </div>
-      <label class="control-label col-sm-2" for="pwd">Data de conversão:</label>
+      <label class="control-label col-sm-2" for="pwd">Conversão:</label>
       <div class="col-sm-10">          
         <input type="text" class="form-control" id="dataDeConversao" name = "dataDeConversao"placeholder="Data de conversão" value="{%for resultado in resultado %}{{resultado.dataDeConversao}}{% endfor %}">
       </div>
@@ -133,32 +132,32 @@
       <div class="col-sm-10">          
         <input type="text" class="form-control" id="procedencia" name = "procedencia"placeholder="Procedencia" value="{%for resultado in resultado %}{{resultado.procedencia}}{% endfor %}">
       </div>
-      <label class="control-label col-sm-2" for="pwd">Forma de admissão:</label>
+      <label class="control-label col-sm-2" for="pwd">Admissão:</label>
       <div class="col-sm-10">          
         <input type="text" class="form-control" id="formaDeAdmissao" name = "formaDeAdmissao"placeholder="Forma de admissão" value="{%for resultado in resultado %}{{resultado.formaDeAdmissao}}{% endfor %}">
       </div>
-      <label class="control-label col-sm-2" for="pwd">Data de baptismo:</label>
+      <label class="control-label col-sm-2" for="pwd">Baptismo:</label>
       <div class="col-sm-10">          
         <input type="text" class="form-control" id="dataDeBaptismo" name = "dataDeBaptismo"placeholder="Data de baptismo" value="{%for resultado in resultado %}{{resultado.dataDeBaptismo}}{% endfor %}">
       </div>
-      <label class="control-label col-sm-2" for="pwd">Local de baptismo:</label>
+      <label class="control-label col-sm-2" for="pwd">Local:</label>
       <div class="col-sm-10">          
         <input type="text" class="form-control" id="localDeBaptismo" name = "localDeBaptismo"placeholder="Local de baptismo" value="{%for resultado in resultado %}{{resultado.localDeBaptismo}}{% endfor %}">
       </div>
       
-      <label class="control-label col-sm-2" for="pwd">Data de consagração a Diacono:</label>
+      <label class="control-label col-sm-2" for="pwd">Diacono:</label>
       <div class="col-sm-10">          
         <input type="text" class="form-control" id="dataDeConsagracaoDiacono" name = "dataDeConsagracaoDiacono"placeholder="Data de consagração a Diacono" value="{%for resultado in resultado %}{{resultado.dataDeConsagracaoDiacono}}{% endfor %}">
       </div>
-        <label class="control-label col-sm-2" for="pwd">Data de consagração a Evangelista:</label>
+        <label class="control-label col-sm-2" for="pwd">Evangelista:</label>
       <div class="col-sm-10">          
-        <input type="text" class="form-control" id="dataDeConsagracaoEvangelista" name = "dataDeConsagracaoEvangelista"placeholder="data de Consagração a Evangelista" value="{%for resultado in resultado %}{{resultado.dataDeConsagracaoEvangelista}}{% endfor %}">
+        <input type="text" class="form-control" id="dataDeConsagracaoEvangelista" name = "dataDeConsagracaoEvangelista"placeholder="Data de Consagração a Evangelista" value="{%for resultado in resultado %}{{resultado.dataDeConsagracaoEvangelista}}{% endfor %}">
       </div>
-    <label class="control-label col-sm-2" for="pwd">Data de consagração a Pastor:</label>
+    <label class="control-label col-sm-2" for="pwd">Pastor:</label>
       <div class="col-sm-10">          
-        <input type="text" class="form-control" id="dataDeConsagracaoPastor" name = "dataDeConsagracaoPastor"placeholder="data de Consagracao a Pastor" value="{%for resultado in resultado %}{{resultado.dataDeConsagracaoPastor}}{% endfor %}">
+        <input type="text" class="form-control" id="dataDeConsagracaoPastor" name = "dataDeConsagracaoPastor"placeholder="Data de Consagracao a Pastor" value="{%for resultado in resultado %}{{resultado.dataDeConsagracaoPastor}}{% endfor %}">
       </div>
-        <label class="control-label col-sm-2" for="pwd">Data de consagração a Missionário:</label>
+        <label class="control-label col-sm-2" for="pwd">Missionário:</label>
       <div class="col-sm-10">          
         <input type="text" class="form-control" id="dataDeConsagracaoMissionario" name = "dataDeConsagracaoMissionario"placeholder="Data de Consagração a Missionário" value="{%for resultado in resultado %}{{resultado.dataDeConsagracaoMissionario}}{% endfor %}">
       </div>
@@ -171,7 +170,7 @@
         {% endfor %}
       </select>
       </div>
-           <label class="control-label col-sm-2" for="pwd">Nome da Congregação:</label>
+           <label class="control-label col-sm-2" for="pwd">Igreja:</label>
       <div class="col-sm-10">          
        <select class="form-control input-sm" id="igreja" name = "igreja">
         <option></option>
@@ -180,7 +179,7 @@
         {% endfor %}
       </select>
       </div>
-       <label class="control-label col-sm-2" for="pwd">Numero de Membro:</label>
+       <label class="control-label col-sm-2" for="pwd">Número:</label>
       <div class="col-sm-10">          
         <input type="text" class="form-control" id="numeroDeMembro" name = "numeroDeMembro"placeholder="Numero de membro" value="{%for resultado in resultado %}{{resultado.numeroDeMembro}}{% endfor %}">
       </div>
@@ -202,30 +201,27 @@
 
   </form>
 </div>
-  
-
+</div>
+</div>
+</div>
 <style type="text/css">
-.form-control{
-  width: 40%;
-  height: 30px;
-}
-.form-group{
-  padding-top: 5px;
-}
-.col-sm-10{
-  padding-bottom: 15px;
-}
-.btnbtn-primary{
-  color:white;
-}
-.cabecalho{
-  color: blue;
-}
-.containerx{
-  margin-top: -6%;
-  margin-left: -1%;
+    .form-horizontal{
 
-}
-</style>
-
+      background-color: white;
+      margin-top: 10px;
+      margin-left: auto;
+      margin-right: auto;
+      font-family: fantasy;
+      }
+    .col-sm-9{
+      margin-bottom: 6px;
+    }
+    .control-label{
+      font-size: 10px;
+    }
+   .form-control{
+      font-size: 12px;
+    }
+   
+  </style>
 {% endblock content%}

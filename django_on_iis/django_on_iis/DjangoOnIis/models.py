@@ -133,8 +133,127 @@ class Oferta(models.Model):
 		return unicode(self.valorDaOferta)
 
 
+#Modulo recursos humanos
+class Funcionario(models.Model):
+	nomeDoFuncionario = models.CharField(max_length=100)
+	estadoCivil = models.CharField(max_length=20)
+	sexo = models.CharField(max_length=10)
+	cargo = models.CharField(max_length=50)
+	endereco = models.CharField(max_length=50)
+	bairro = models.CharField(max_length=50)
+	provincia = models.ForeignKey(Provincia)
+	caixaPostal = models.CharField(max_length=10)
+	telefone = models.CharField(max_length=20)
+	email = models.EmailField(max_length=200)
+	dataDeNascimento = models.DateField()
+	#naturalidade = models.ForeignKey(Municipio)
+	pais = models.ForeignKey(Pais)
+	grauAcademico = models.CharField(max_length=50)
+	profissao = models.CharField(max_length=50)
+	numeroDeIdentificacao = models.CharField(max_length=50)
+	filiacaoPai = models.CharField(max_length=100)
+	filiacaoMae = models.CharField(max_length=100)
+	numeroDeFuncionario= models.CharField(max_length=20)
+	salarioBase = models.FloatField(default=None)
+
+	def __unicode__(self):
+		return unicode(self.nomeDoFuncionario)
 
 
+class Salario(models.Model):
+	nomeDoFuncionario=models.ForeignKey(Funcionario)
+	salarioAno = models.CharField(max_length=10)
+	salarioMes= models.CharField(max_length=20)
+	salarioSS = models.FloatField(default=None)
+	salarioIRT = models.FloatField(default=None)
+	salarioNumerodeFaltas = models.CharField(max_length=10)
+	salarioBonus = models.FloatField(max_length=100)
+	salarioLiquido = models.FloatField(default=None)
+
+	def __unicode__(self):
+		return unicode(self.salarioLiquido)
+
+
+
+class Equipamento(models.Model):
+    igreja = models.ForeignKey(Igreja)
+    nome=models.CharField(max_length=100)
+    marca = models.CharField(max_length=50)
+    numeroDeSerie = models.CharField(max_length=30)
+    dataDaAquisicao = models.DateField()
+    modelo = models.CharField(max_length=30)
+    localizacao = models.CharField(max_length=50)
+    estado = models.CharField(max_length=30)
+    preco = models.FloatField(default=None)
+    obs = models.CharField(max_length=300)
+
+    def __unicode__(self):
+        return unicode(self.nome)
+
+
+#NOTICIAS-----------------------------------------
+class Noticias(models.Model):
+    funcionario = models.ForeignKey(Membro)
+    titulo = models.CharField(max_length=300)
+    noticia=models.CharField(max_length=5000)
+    foto = models.ImageField(upload_to = 'fotos/%Y/%m/%d')
+    dataPublicacao = models.DateField()
+    tipo = models.CharField(max_length=20)
+    def __unicode__(self):
+        return unicode(self.titulo)
+
+class Comentarios(models.Model):
+    noticia=models.ForeignKey(Noticias)
+    autor = models.CharField(max_length=100)
+    comentario = models.CharField(max_length=5000)
+    data = models.DateField()
+    def __unicode__(self):
+        return unicode(self.comentario)
+
+class Eventos(models.Model):
+    departamento = models.ForeignKey(Departamento)
+    evento = models.CharField(max_length=5000)
+    dataDoEvento = models.DateField()
+    localDoEvento = models.CharField(max_length=200)
+    igreja= models.ForeignKey(Igreja)
+    autor = models.CharField(max_length=100)
+    dataDaPublicacao = models.DateField()
+    def __unicode__(self):
+        return unicode(self.evento)
+
+
+class Configuracoes(models.Model):
+	igreja= models.ForeignKey(Igreja)
+	imagem1 = models.ImageField(upload_to = 'fotos/%Y/%m/%d')
+	imagem2 = models.ImageField(upload_to = 'fotos/%Y/%m/%d')
+	texto1 = models.CharField(max_length=400)
+	texto2 = models.CharField(max_length=400)
+	texto3 = models.CharField(max_length=400)
+	texto4 = models.CharField(max_length=400)
+	texto5 = models.CharField(max_length=400)
+	texto6 = models.CharField(max_length=400)
+	desenvolvedores = models.CharField(max_length=200)
+	def __unicode__(self):
+		return unicode(self.desenvolvedores)
+
+
+class Utilizador(models.Model):
+	nomeDoMembro = models.ForeignKey(Membro)
+	user = models.CharField(max_length=50)
+	password = models.CharField(max_length=50)
+
+	def __unicode__(self):
+		return unicode(self.user)
+
+
+
+class User(models.Model):
+	funcionario = models.ForeignKey(Funcionario)
+	userEmail = models.EmailField(max_length=100)
+	userPassword = models.CharField(max_length=100)
+
+	def __unicode__(self):
+		return unicode(self.userEmail)
 
 
 

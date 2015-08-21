@@ -1,0 +1,330 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title></title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="{% static 'home/css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="{% static 'home/css/modern-business.css' %}" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="{% static 'home/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+               
+                <a class="navbar-brand" href="index.html"><img src="/media/{{configuracoes.imagem1}}" width="250" height="30"></a>
+                
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right"> 
+                    <li>
+                        <a href="contact.html">Notícias</a>
+                    </li>
+                    <li>
+                        <a href="contact.html">Eventos</a>
+                    </li>
+                    <li>
+                        <a href="contact.html">Devocionais</a>
+                    </li>
+                    <li>
+                        <a href="contact.html">Downloads</a>
+                    </li>
+                    <li>
+                        <a href="about.html">Sobre</a>
+                    </li>
+                    <li>
+                        <a href="contact.html">Contactos</a>
+                    </li>
+                    <li>
+                        <a href="contact.html">Admin</a>
+                    </li>
+                     <form class="navbar-form navbar-right">
+                        <input type="text" class="form-control" placeholder="Procurar...">
+                    </form>
+                   <!-- <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Portfolio <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="portfolio-1-col.html">1 Column Portfolio</a>
+                            </li>
+                            <li>
+                                <a href="portfolio-2-col.html">2 Column Portfolio</a>
+                            </li>
+                            <li>
+                                <a href="portfolio-3-col.html">3 Column Portfolio</a>
+                            </li>
+                            <li>
+                                <a href="portfolio-4-col.html">4 Column Portfolio</a>
+                            </li>
+                            <li>
+                                <a href="portfolio-item.html">Single Portfolio Item</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Blog <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="blog-home-1.html">Blog Home 1</a>
+                            </li>
+                            <li>
+                                <a href="blog-home-2.html">Blog Home 2</a>
+                            </li>
+                            <li>
+                                <a href="blog-post.html">Blog Post</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Other Pages <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="full-width.html">Full Width Page</a>
+                            </li>
+                            <li>
+                                <a href="sidebar.html">Sidebar Page</a>
+                            </li>
+                            <li>
+                                <a href="faq.html">FAQ</a>
+                            </li>
+                            <li>
+                                <a href="404.html">404</a>
+                            </li>
+                            <li>
+                                <a href="pricing.html">Pricing Table</a>
+                            </li>
+                        </ul>
+                    </li>
+                    -->
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+
+    <!-- Header Carousel -->
+    <header id="myCarousel" class="carousel slide">
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#myCarousel" data-slide-to="1"></li>
+            <li data-target="#myCarousel" data-slide-to="2"></li>
+        </ol>
+
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner">
+            <div class="item active" >
+                <img src="/media/{{noticia1.foto}}"class="fill">
+                <div class="carousel-caption">
+                    <a href="/gestao/noticias/lermais?id={{noticia1.id}}">
+                    <font size="7" color="white">{{noticia1.titulo}}</font></a>
+                </div>
+            </div>
+            <div class="item">
+                <img src="/media/{{noticia2.foto}}"class="fill">
+                <div class="carousel-caption">
+                    <a href="/gestao/noticias/lermais?id={{noticia2.id}}">
+                    <font size="7" color="white">{{noticia2.titulo}}</font></a>
+                </div>
+            </div>
+            <div class="item">
+                <img src="/media/{{noticia3.foto}}"class="fill">
+                <div class="carousel-caption">
+                    <a href="/gestao/noticias/lermais?id={{noticia3.id}}">
+                    <font size="7" color="white">{{noticia3.titulo}}</font></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Controls -->
+        <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+            <span class="icon-prev"></span>
+        </a>
+        <a class="right carousel-control" href="#myCarousel" data-slide="next">
+            <span class="icon-next"></span>
+        </a>
+    </header>
+
+    <!-- Page Content -->
+    <div class="container">
+
+        <!-- Marketing Icons Section -->
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">
+                    Eventos
+                </h1>
+            </div>
+            {% for eventos in eventos%} 
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4><i class="fa fa-fw fa-check"></i> {{eventos.titulo}}</h4>
+                    </div>
+                    <div class="panel-body">
+                        <p>   {{eventos.noticia}} </p>
+                        <a href="/gestao/noticias/lermais?id={{eventos.id}}" class="btn btn-default">Ler Mais</a>
+                    </div>
+                </div>
+            </div>
+         {% endfor %}
+            
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4><i class="fa fa-fw fa-compass"></i> Programa da Igreja</h4>
+                    </div>
+                    <div class="panel-body">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque, optio corporis quae nulla aspernatur in alias at numquam rerum ea excepturi expedita tenetur assumenda voluptatibus eveniet incidunt dicta nostrum quod?</p>
+                        <a href="#" class="btn btn-default">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.row -->
+
+        <!-- Portfolio Section -->
+        <div class="row">
+            <div class="col-lg-12">
+                <h2 class="page-header">Outras Notícias</h2>
+            </div>
+            {% for noticiasNormais in noticiasNormais %}
+            <div class="col-md-4 col-sm-6">
+
+                <a href="/gestao/noticias/lermais?id={{noticiasNormais.id}}">
+                    <img src="/media/{{noticiasNormais.foto}}" width="300" height="200"alt=""><p></p>
+                    <div style="font-size:12px; text-decoration:none;" >
+                         <a href="/gestao/noticias/lermais?id={{noticiasNormais.id}}">
+                    <b><font size="3" color="black">{{noticiasNormais.titulo}}</font></a><p></p></b>
+                    </div>
+                </a>
+            </div>
+          
+            {% endfor %}
+            
+          
+        </div>
+        <!-- /.row -->
+
+        <!-- Features Section -->
+ <!-- Features Section -->
+        <div class="row">
+            <div class="col-lg-12">
+                <h2 class="page-header">Devocionais</h2>
+            </div>
+            <div class="col-md-6">
+                
+                <ul>
+                    {% for devocional in devocional %}
+                    <li> <a href="/gestao/homeum/lermais?id={{devocional.id}}"><strong>{{devocional.titulo}}</strong></a>
+                    </li>
+                    {% endfor %}
+
+                </ul>
+            </div>
+            <div class="col-md-6">
+               <a href="/gestao/noticias/lermais?id={{ultimo_devocional.id}}"> <img class="img-responsive"  src="/media/{{ultimo_devocional.foto}}" width="700" height="450"></a><p></p>
+            </div>
+        </div>
+        <!-- /.row -->
+
+
+
+
+        <hr>
+
+        <!-- Call to Action Section -->
+        <div class="well">
+            <div class="row">
+                <div class="col-md-8">
+                    <p></p>
+                </div>
+                <div class="col-md-4">
+                    <a class="btn btn-lg btn-default btn-block" href="#">Call to Action</a>
+                </div>
+            </div>
+        </div>
+
+        <hr>
+
+        <!-- Footer -->
+        <footer>
+            <div class="row">
+                <div class="col-lg-12">
+                    <p>Copyright &copy; Your Website 2014</p>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+
+
+{%  block content %}
+
+{% endblock content %}
+    <!-- /.container -->
+
+    <!-- jQuery -->
+    <script src="{% static 'home/js/jquery.js' %}"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="{% static 'home/js/bootstrap.min.js'%}"></script>
+
+    <!-- Script to Activate the Carousel -->
+    <script>
+    $('.carousel').carousel({
+        interval: 5000 //changes the speed
+    })
+    </script>
+
+</body>
+<style type="text/css">
+.carousel-inner{
+    width: 70%;
+    margin-left: 15%;
+    margin-right: 15%;
+
+}
+.row{
+ width: 90%;
+ margin-left: auto;
+margin-right: auto;
+}
+
+</style>
+</html>

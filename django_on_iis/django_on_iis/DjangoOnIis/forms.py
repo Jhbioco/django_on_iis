@@ -2,10 +2,10 @@
 # -*- coding: latin-1 -*-
 
 from django import forms
-from .models import Igreja,Pais,Provincia,Municipio,Departamento,Membro
 from django import forms
-from .models import Pais, Provincia, Municipio, Igreja, Departamento, Membro
+from .models import Pais, Provincia, Municipio, Igreja, Departamento, Membro, Oferta, Projeto, Dizimo, Contribuicao, Salario, Funcionario, Equipamento, Noticias,Comentarios,Eventos, Utilizador, Configuracoes 
 from django.db import connection
+
 
 def dictfetchall(cursor):
 	desc = cursor.description
@@ -97,5 +97,100 @@ class ProjetoForm(forms.Form):
 	igreja = forms.CharField()
 	descricaoDoProjeto = forms.CharField()
 	orcamento = forms.FloatField()
+
+
+class FuncionarioForm(forms.Form):
+	nomeDoFuncionario = forms.CharField(max_length=100)
+	estadoCivil = forms.CharField(max_length=20)
+	sexo = forms.CharField(max_length=10)
+	cargo = forms.CharField(max_length=50)
+	endereco = forms.CharField(max_length=50)
+	bairro = forms.CharField(max_length=50)
+	provincia = forms.ChoiceField(choices=get_provincia(),required=False)
+	caixaPostal = forms.CharField(max_length=10)
+	telefone = forms.CharField(max_length=20)
+	email = forms.EmailField(max_length=200)
+	dataDeNascimento = forms.DateField()
+	pais = forms.ChoiceField(choices=get_pais())
+	grauAcademico = forms.CharField(max_length=50)
+	profissao = forms.CharField(max_length=50)
+	numeroDeIdentificacao = forms.CharField(max_length=50)
+	filiacaoPai = forms.CharField(max_length=100)
+	filiacaoMae = forms.CharField(max_length=100)
+	numeroDeFuncionario = forms.CharField(max_length=20)
+	salarioBase = forms.FloatField()
+	#foto = forms.ImageField(required=False)
+
+
+class SalarioForm(forms.Form):
+	nomeDoFuncionario=forms.CharField()
+	salarioAno = forms.CharField()
+	salarioMes= forms.CharField()
+	salarioSS = forms.FloatField()
+	salarioIRT = forms.FloatField()
+	salarioNumerodeFaltas = forms.CharField()
+	salarioBonus = forms.FloatField()
+	salarioLiquido = forms.FloatField()
+
+class EquipamentoForm(forms.Form):
+    igreja = forms.CharField()
+    nome=forms.CharField()
+    marca = forms.CharField()
+    numeroDeSerie = forms.CharField()
+    dataDaAquisicao = forms.DateField()
+    modelo = forms.CharField()
+    localizacao = forms.CharField()
+    estado = forms.CharField()
+    preco = forms.FloatField()
+    obs = forms.CharField()
+
+class NoticiasForm(forms.Form):
+    titulo = forms.CharField()
+    noticia=forms.CharField()
+    foto = forms.ImageField(label='Seleccionar imagem')
+    funcionario=forms.CharField()
+    dataPublicacao = forms.DateField()
+    tipo = forms.CharField(required=False)
+
+
+class ComentariosForm(forms.Form):
+    noticia=forms.CharField()
+    autor = forms.CharField()
+    comentario = forms.CharField()
+    data = forms.DateField()
+    
+
+
+class EventosForm(forms.Form):
+    departamento = forms.CharField()
+    evento = forms.CharField()
+    dataDoEvento = forms.DateField()
+    localDoEvento = forms.CharField()
+    igreja= forms.CharField()
+    autor = forms.CharField()
+    dataDaPublicacao = forms.DateField()
+
+
+
+class ConfiguracoesForm(forms.Form):
+	igreja= forms.CharField()
+	imagem1 = forms.ImageField(label='Seleccionar imagem')
+	imagem2 = forms.ImageField(label='Seleccionar imagem')
+	texto1 = forms.CharField()
+	texto2 = forms.CharField()
+	texto3 = forms.CharField()
+	texto4 = forms.CharField()
+	texto5 = forms.CharField()
+	texto6 = forms.CharField()
+	desenvolvedores = forms.CharField()
+
+
+
+class UserForm(forms.Form):
+	funcionario = forms.ChoiceField()
+	userEmail = forms.ChoiceField()
+	Userpassword = forms.ChoiceField()
+
+
 
 

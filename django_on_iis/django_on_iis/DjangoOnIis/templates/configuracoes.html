@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>CONFIGURAÇÕES<HR></h1>
+<div class="container">
+  <form class="form-horizontal" role="form" method="POST" enctype="multipart/form-data">{% csrf_token %}
+    {{form.errors}}
+    <div class="form-group">
+      <p><p>
+     <label class="control-label col-sm-2" for="pwd">Igreja:</label>
+      <div class="col-sm-10">          
+       <select class="form-control input-sm" id="igreja" name = "igreja">
+        <option></option>
+        {% for igreja in igreja %}
+        <option>{{igreja.nomeDaIgreja}}</option>
+        {% endfor %}
+      </select>
+      </div>
+      
+      <label class="control-label col-sm-2" for="email">{{form.imagem1.label_tag}}</label>
+     <div class="col-sm-10"> 
+     {{form.imagem1.errors}}    
+     {{form.imagem1}}
+     </div>
+
+    <label class="control-label col-sm-2" for="email">{{form.imagem2.label_tag}}</label>
+     <div class="col-sm-10"> 
+     {{form.imagem2.errors}}    
+     {{form.imagem2}}
+     </div>
+      <label class="control-label col-sm-2" for="email">Texto 1:</label>
+     <div class="col-sm-10">          
+        <input type="text" class="form-control" id="texto1" name = "texto1"placeholder="Texto 1">
+      </div>
+      <label class="control-label col-sm-2" for="email">Texto 2:</label>
+     <div class="col-sm-10">          
+        <input type="text" class="form-control" id="texto2" name = "texto2"placeholder="Texto 2">
+      </div>
+      <label class="control-label col-sm-2" for="email">Texto 3:</label>
+     <div class="col-sm-10">          
+        <input type="text" class="form-control" id="texto3" name = "texto3"placeholder="Texto 3">
+      </div>
+      <label class="control-label col-sm-2" for="email">Texto 4:</label>
+     <div class="col-sm-10">          
+        <input type="text" class="form-control" id="texto4" name = "texto4"placeholder="Texto 4">
+      </div>
+      <label class="control-label col-sm-2" for="email">Texto 5:</label>
+     <div class="col-sm-10">          
+        <input type="text" class="form-control" id="texto5" name = "texto5"placeholder="Texto 5">
+      </div>
+      <label class="control-label col-sm-2" for="email">Texto 6:</label>
+     <div class="col-sm-10">          
+        <input type="text" class="form-control" id="texto6" name = "texto6"placeholder="Texto 6">
+      </div>
+      <label class="control-label col-sm-2" for="email">Copyrigth:</label>
+     <div class="col-sm-10">          
+        <input type="text" class="form-control" id="desenvolvedores" name = "desenvolvedores"placeholder="desenvolvedores">
+      </div>
+
+
+   
+
+ <div class="col-sm-offset-2 col-sm-10">
+        <button type="submit" class="btn btn-default">Gravar</button>
+      </div>
+
+
+  </form>
+</div>
+
+
+<style type="text/css">
+.form-control{
+  width: 40%;
+  height: 30px;
+}
+.form-group{
+  padding-top: 5px;
+}
+.col-sm-10{
+  padding-bottom: 15px;
+}
+.btnbtn-primary{
+  color:white;
+}
+.cabecalho{
+  color: blue;
+}
+.containerx{
+  margin-top: -6%;
+  margin-left: -1%;
+
+}
+</style>
+
+{% endblock content %}

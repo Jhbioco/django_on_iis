@@ -2,9 +2,20 @@
 
 {% block content %}
 
-<div class="container">
+<div class="col-sm-9" >
+  <div>
+
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs col-sm-10" role="tablist">
+    <li role="presentation" class="active" style="font-size:12px; font-family: fantasy;"><a href="#pesquisarFuncionario" aria-controls="pesquisarFuncionario" role="tab" data-toggle="tab">Pesquisar Funcionário</a></li>
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content col-sm-10" style = "background-color: white; box-shadow: 2px 10px 10px 3px grey;">
+  
+    <div role="tabpanel" class="tab-pane fade in active" id="pesquisarFuncionario" style="font-size:12px; font-family: fantasy; margin-top: 10px;">
   <form class="form-horizontal" role="form" method="POST">
-<div class="form-group">
+<div class="form-group" style="margin-left:3px;">
 <fieldset>
 <legend>Dados Pessoais </legend>      
 <table style="width:50%">
@@ -79,7 +90,7 @@
 
 <fieldset>
 <legend>Dados Profissionais</legend>
-<table style="width:50%">
+<table style="width:50%;">
 
 
 <tr>
@@ -101,26 +112,20 @@
   
 </table>
 
-<div class="col-sm-offset-2 col-sm-10">
+<div class="col-sm-2" style="margin-left:-15px;">
         <button type="reset" class="btn btn-default" onclick="voltar()">Voltar</button>
 </div>
 </form>
+</div>
+</div>
+</div>
+</div>
+
 <script type="text/javascript">
 
 function voltar(){
   window.location= "/gestao/rh/funcionario/pesquisar/";
 }
 </script>
-
-<style type="text/css">
-.form-group{
-  margin-left: 0%;
-  margin-right: 0%;
-  width: 68%;
-}
-.td {
-  text-align: right;
-}
-</style>
 
 {% endblock content %}

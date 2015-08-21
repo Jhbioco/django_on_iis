@@ -1,0 +1,37 @@
+{%extends "base.html"%}
+
+{%block content%}
+<div class="col-sm-9" >
+  <div>
+
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs col-sm-10" role="tablist">
+    <li role="presentation" class="active" style="font-size:12px; font-family: fantasy;"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Informação</a></li>
+    <li role="presentation" style="font-size:12px; font-family: fantasy;"><a href="#notificacoes" aria-controls="notificacoes" role="tab" data-toggle="tab">Notificações</a></li>
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content col-sm-10" style = "background-color: white; box-shadow: 2px 10px 10px 3px grey;font-size=12px; font-family:fantasy; margin-top:10px;">
+    <div role="tabpanel" class="tab-pane fade in active" id="home" style="font-size:12px; font-family: fantasy; margin-top: 10px;">
+      <p>Membros: 1250</p>
+      <p><b>Batizados: </b>1000</p>
+      <p><b>Dizimistas: </b>950</p>
+      <p><b>Em plena Comunhão: </b>1100</p>
+      <hr>
+      <p><b>Tranferidos: </b>8</p>
+      <p><b>Catecumenos: </b>1000</p>
+      
+    </div>
+    <div role="tabpanel" class="tab-pane fade" id="notificacoes">
+      <p>Sem notificações</p>
+
+    </div>
+ 
+    </div>
+ 
+  </div>
+
+  </div> 
+ 
+
+{%endblock content%}

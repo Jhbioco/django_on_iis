@@ -15,6 +15,8 @@ import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+PROJECT_ROOT = os.path.realpath(os.path.dirname(__file__))
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
@@ -35,9 +37,12 @@ INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
+    'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'DjangoOnIis',
+    'registration',
+
 )
 
 MIDDLEWARE_CLASSES = (
@@ -94,7 +99,9 @@ DATABASES = {
         'PORT':'3306',
     }
 }
-TEMPLATE_DIRS=(os.path.join(BASE_DIR + '/templates'),)
+TEMPLATE_DIRS=(os.path.join(BASE_DIR +'/templates'),
+
+)
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
@@ -114,3 +121,42 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_URL = '/static/'
+
+#STATIC_ROOT = (os.path.join(BASE_DIR, 'static', 'static_root')
+
+#STATICFILES_DIRS =(
+ #   os.path.join(BASE_DIR, 'static', 'static_dirs')
+
+#)
+
+#MEDIA_ROOT = os.path.join(BASE_DIR, '/static', 'media')
+
+#MEDIA_URL = '/media/'
+
+
+MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'media')
+
+MEDIA_URL = '/media/'
+
+ACCOUNT_ACTIVATION_DAYS =7
+REGISTRATION_AUTO_LOGIN = True
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
